@@ -26,6 +26,7 @@ export default function Navbar() {
     { name: 'Applications', href: '/head/applications' },
     { name: 'Agents', href: '/head/agents' },
     { name: 'Collections', href: '/head/collections' },
+    { name: 'Users', href: '/head/users' },
   ];
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
