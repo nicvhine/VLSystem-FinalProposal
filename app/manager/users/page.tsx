@@ -44,10 +44,6 @@ function CreateUserModal({ isOpen, onClose, onAdd }: {
     <div className="fixed inset-0 backdrop-blur-sm bg-white/30 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg p-6 w-full max-w-md shadow-lg">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold text-gray-800">Create New User</h2>
-          <button onClick={onClose} className="p-1 hover:bg-gray-100 rounded-full">
-            <FiX className="w-5 h-5 text-gray-500" />
-          </button>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -77,21 +73,6 @@ function CreateUserModal({ isOpen, onClose, onAdd }: {
             />
           </div>
           <div>
-            {/* <label className="block text-sm font-medium text-gray-700 mb-1">
-              Role
-            </label> */}
-            {/* <select
-              value={formData.role}
-              onChange={(e) => setFormData({ ...formData, role: e.target.value as CreateUserFormData['role'] })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
-            >
-              <option value="Admin">Admin</option>
-              <option value="Office Head">Office Head</option>
-              <option value="Agent">Agent</option>
-              <option value="Collector">Collector</option>
-            </select> */}
-          </div>
-          <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Status
             </label>
@@ -104,21 +85,7 @@ function CreateUserModal({ isOpen, onClose, onAdd }: {
               <option value="Inactive">Inactive</option>
             </select>
           </div>
-          <div className="flex justify-end gap-2 pt-4">
-            <button
-              type="button"
-              onClick={onClose}
-              className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-md"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-            >
-              Create User
-            </button>
-          </div>
+        
         </form>
       </div>
     </div>
@@ -423,13 +390,7 @@ export default function UsersPage() {
               <FiChevronDown className="text-gray-400 w-4 h-4" />
             </div>
           </div>
-          <button 
-            onClick={() => setShowCreateModal(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-white text-gray-700 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
-          >
-            <FiUserPlus className="w-4 h-4" />
-            <span>Create User</span>
-          </button>
+        
         </div>
 
         {/* Users Table */}

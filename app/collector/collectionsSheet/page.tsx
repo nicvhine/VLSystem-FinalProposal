@@ -257,18 +257,28 @@ export default function CollectionsSheetPage() {
                   <td className="px-6 py-4 text-sm text-gray-900 font-medium">{formatCurrency(loan.paidAmount)}</td>
                   <td className="px-6 py-4 text-sm text-gray-900 font-medium">{formatCurrency(loan.periodAmount)}</td>
                   <td className="px-6 py-4 text-left">
+                  <div className="flex justify-evenly items-center">
                   <button
-                    onClick={() => setAddPaymentModalOpen(true)}
-                    className="px-3 py-1 text-xs bg-blue-600 text-white rounded-lg"
+                    className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setAddPaymentModalOpen(true);
+                    }}
                   >
                     Add Payment
                   </button>
+
                   <button
-                    onClick={() => setLeaveNoteModalOpen(true)}
-                    className="px-3 py-1 text-xs bg-gray-600 text-white rounded-lg ml-2"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setLeaveNoteModalOpen(true);
+                    }}
+                    className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
                   >
                     Leave Note
                   </button>
+                </div>
+
                   </td>
                 </tr>
               ))}
@@ -277,77 +287,81 @@ export default function CollectionsSheetPage() {
         </Suspense>
       </div>
 
-      {/* Add Payment Modal */}
-      {isAddPaymentModalOpen && (
-        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-10">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-            <h2 className="text-xl font-bold">Add Payment</h2>
-            <form>
-              <div className="my-4">
-                <label htmlFor="paymentAmount" className="block text-sm font-medium text-gray-700">Payment Amount</label>
-                <input
-                  type="number"
-                  id="paymentAmount"
-                  name="paymentAmount"
-                  className="mt-1 p-2 w-full border rounded-md"
-                  placeholder="Enter payment amount"
-                />
-              </div>
-              <div className="flex justify-end gap-4">
-                <button
-                  type="button"
-                  onClick={() => setAddPaymentModalOpen(false)}
-                  className="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-4 py-1.5 bg-blue-600 text-white rounded-lg"
-                >
-                  Add Payment
-                </button>
-              </div>
-            </form>
+    
+        {/* Add Payment Modal */}
+        {isAddPaymentModalOpen && (
+          <div className="fixed inset-0 z-20 flex items-center justify-center bg-black/40 backdrop-blur-sm transition-all duration-300 ease-in-out">
+            <div className="bg-gradient-to-br from-blue-100 to-white p-8 rounded-2xl shadow-lg w-96">
+              <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Add Payment</h2>
+              <form>
+                <div className="mb-6">
+                  <label htmlFor="paymentAmount" className="block text-sm font-medium text-gray-600">Payment Amount</label>
+                  <input
+                    type="number"
+                    id="paymentAmount"
+                    name="paymentAmount"
+                    className="mt-2 p-4 w-full border-2 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Enter payment amount"
+                  />
+                </div>
+                <div className="flex justify-between gap-6">
+                  <button
+                    type="button"
+                    onClick={() => setAddPaymentModalOpen(false)}
+                    className="px-6 py-3 bg-gray-200 text-gray-800 rounded-lg font-semibold text-sm w-full hover:bg-gray-300 transition duration-200 ease-in-out"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setAddPaymentModalOpen(false)}
+                    className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold text-sm w-full hover:bg-blue-700 transition duration-200 ease-in-out"
+                  >
+                    Add Payment
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+
 
       {/* Leave Note Modal */}
-      {isLeaveNoteModalOpen && (
-        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-10">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-            <h2 className="text-xl font-bold">Leave Note</h2>
-            <form>
-              <div className="my-4">
-                <label htmlFor="note" className="block text-sm font-medium text-gray-700">Note</label>
-                <textarea
-                  id="note"
-                  name="note"
-                  className="mt-1 p-2 w-full border rounded-md"
-                  placeholder="Enter your note"
-                  rows="4"
-                />
-              </div>
-              <div className="flex justify-end gap-4">
-                <button
-                  type="button"
-                  onClick={() => setLeaveNoteModalOpen(false)}
-                  className="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg"
-                >
-                  Save Note
-                </button>
-              </div>
-            </form>
-          </div>
+{isLeaveNoteModalOpen && (
+  <div className="fixed inset-0 z-20 flex items-center justify-center bg-black/40 backdrop-blur-sm transition-all duration-300 ease-in-out">
+    <div className="bg-gradient-to-br from-blue-100 to-white p-8 rounded-2xl shadow-lg w-96">
+      <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Leave a Note</h2>
+      <form>
+        <div className="mb-6">
+          <label htmlFor="note" className="block text-sm font-medium text-gray-600">Note</label>
+          <textarea
+            id="note"
+            name="note"
+            className="mt-2 p-4 w-full border-2 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Enter your note here"
+          />
         </div>
-      )}
+        <div className="flex justify-between gap-4">
+          <button
+            type="button"
+            onClick={() => setLeaveNoteModalOpen(false)}
+            className="px-6 py-3 bg-gray-200 text-gray-800 rounded-lg font-semibold text-sm w-full hover:bg-gray-300 transition duration-200 ease-in-out"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            onClick={() => setLeaveNoteModalOpen(false)}
+            className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold text-sm w-full hover:bg-blue-700 transition duration-200 ease-in-out"
+          >
+            Save Note
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+)}
+
     </div>
   );
 }
