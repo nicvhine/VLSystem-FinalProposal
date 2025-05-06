@@ -16,15 +16,8 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
   const router = useRouter();
 
   useEffect(() => {
-    if (isOpen || showOtpModal) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
-
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
+    document.body.style.overflow = isOpen || showOtpModal ? 'hidden' : 'auto';
+    return () => (document.body.style.overflow = 'auto');
   }, [isOpen, showOtpModal]);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -51,7 +44,6 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
 
   const handleOtpSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
     if (otp === '123456') {
       setShowOtpModal(false);
       onClose();
@@ -64,65 +56,71 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
   if (!isOpen && !showOtpModal) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-      {/* OTP Modal */}
-      {showOtpModal ? (
-        <div className="bg-white p-6 rounded-lg shadow-lg w-96 relative">
-          <h2 className="text-sm text-gray-600 mb-4">Enter OTP sent to your registered number</h2>
-          <form onSubmit={handleOtpSubmit}>
-            <input
-              type="text"
-              placeholder="Enter OTP"
-              className="w-full p-2 border rounded mb-4"
-              value={otp}
-              onChange={(e) => setOtp(e.target.value)}
-            />
-            <div className="flex justify-center">
+    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center px-4">
+      <div className="bg-white rounded-xl shadow-2xl w-full max-w-sm p-6 relative animate-fade-in">
+        <button
+          onClick={onClose}
+          className="absolute top-3 right-3 text-gray-400 hover:text-gray-700 transition"
+        >
+          ✖
+        </button>
+
+        {showOtpModal ? (
+          <>
+            <h2 className="text-xl font-semibold text-center text-gray-800 mb-2">OTP Verification</h2>
+            <p className="text-sm text-gray-600 text-center mb-4">
+              Enter the 6-digit code sent to your registered number.
+            </p>
+            <form onSubmit={handleOtpSubmit}>
+              <input
+                type="text"
+                placeholder="Enter OTP"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+              />
               <button
                 type="submit"
-                className="px-4 py-2 bg-blue-600 text-white rounded"
+                className="w-full py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
               >
                 Verify OTP
               </button>
-            </div>
-          </form>
-        </div>
-      ) : (
-        // Login Modal
-        <div className="bg-white p-6 rounded-lg shadow-lg w-96 relative">
-          <button
-            onClick={onClose}
-            className="absolute top-3 right-3 text-gray-600 hover:text-black"
-          >
-            ✖
-          </button>
-          <h2 className="text-sm text-gray-600 mb-4">Login to your VLSystem account.</h2>
-          <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              placeholder="Username"
-              className="w-full p-2 border rounded mb-2"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              className="w-full p-2 border rounded mb-4"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <div className="flex justify-center">
-              <button
-                type="submit"
-                className="px-4 py-2 bg-red-600 text-white rounded"
-              >
-                Login
-              </button>
-            </div>
-          </form>
-        </div>
-      )}
+            </form>
+          </>
+        ) : (
+          <>
+            <h2 className="text-xl font-semibold text-center text-gray-800 mb-2">Welcome Back</h2>
+            <p className="text-sm text-gray-600 text-center mb-4">
+              Login to your VLSystem account
+            </p>
+            <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                placeholder="Username"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md mb-3 focus:outline-none focus:ring-2 focus:ring-red-500"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-red-500"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <div className="flex justify-center">
+                <button
+                  type="submit"
+                  className="w-20 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition"
+                >
+                  Login
+                </button>
+              </div>
+
+            </form>
+          </>
+        )}
+      </div>
     </div>
   );
 }
