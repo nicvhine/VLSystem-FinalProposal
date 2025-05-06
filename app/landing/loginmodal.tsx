@@ -30,11 +30,17 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
 
     if (username === 'head' && password === 'head') {
       router.push('/head');
-      onClose(); 
+      onClose();
+    } else if (username === 'manager' && password === 'manager') {
+      router.push('/manager');
+      onClose();
+    } else if (username === 'loanofficer' && password === 'loanofficer') {
+      router.push('/loanofficer');
+      onClose();
     } else {
       alert('Invalid credentials');
     }
-  };
+  }
 
   if (!isOpen) return null;
 

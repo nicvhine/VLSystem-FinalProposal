@@ -1,12 +1,14 @@
-"use client";
+"use client"; 
 
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
+import { FiHome, FiUsers, FiDollarSign, FiFileText, FiUserCheck, FiDatabase, FiSettings } from 'react-icons/fi';
 
 export default function Navbar() {
   const [language, setLanguage] = useState('English');
+  const pathname = usePathname();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [username, setUsername] = useState('john_doe');
   const [password, setPassword] = useState('password123');
@@ -14,16 +16,12 @@ export default function Navbar() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [passwordError, setPasswordError] = useState('');
-  const pathname = usePathname();
 
   const navItems = [
-    { name: 'Home', href: '/manager' },
-    { name: 'Clients', href: '/manager/clients' },
-    { name: 'Loans', href: '/manager/loans' },
-    { name: 'Applications', href: '/manager/applications' },
-    { name: 'Agents', href: '/manager/agents' },
-    { name: 'Collections', href: '/manager/collections' },
-    { name: 'Users', href: '/manager/users' },
+    { name: 'Home', href: '/collector'},
+    { name: 'Collection Sheet', href: '/collector/collectionsSheet'},
+    { name: 'PayMongo Payments', href: '/collector/paymongoPayments'},
+    { name: 'Payments', href: '/collector/payments'},
   ];
 
   const toggleDropdown = () => {
@@ -31,7 +29,6 @@ export default function Navbar() {
   };
 
   const handleEdit = () => {
-    // Basic validation for new password and confirm password
     if (newPassword !== confirmPassword) {
       setPasswordError('New Password and Confirm Password do not match.');
     } else {
@@ -42,18 +39,19 @@ export default function Navbar() {
 
   return (
     <div className="w-full bg-gradient-to-r from-gray-50 to-white border-b border-gray-200 shadow-sm">
-    <div className="w-full px-6 py-3">
+       <div className="w-full px-6 py-3">
         <div className="flex items-center justify-between">
-          <Link
-            href="/dashboard"
+          <Link 
+            href="/dashboard" 
             className="flex items-center space-x-2 text-xl font-semibold bg-gradient-to-r from-red-600 to-blue-800 bg-clip-text text-transparent hover:from-red-700 hover:to-red-900 transition-all"
           >
             <span>VLSystem</span>
           </Link>
 
+         
           <div className="flex items-center space-x-8">
             {/* Navigation Links */}
-              {/* language selector */}
+             {/* language selector */}
           <label className="flex items-center cursor-pointer">
               <input
                 type="checkbox"
@@ -86,6 +84,7 @@ export default function Navbar() {
                             : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                         }`}
                       >
+                        {/* <Icon className={`w-4 h-4 ${isActive ? 'text-blue-600' : 'text-gray-400'}`} /> */}
                         <span>{item.name}</span>
                       </Link>
                     </li>
@@ -93,6 +92,9 @@ export default function Navbar() {
                 })}
               </ul>
             </nav>
+
+            <div className="flex items-center space-x-4">
+             
 
             <div className="relative">
               {/* Profile Image and Dropdown */}
@@ -177,6 +179,7 @@ export default function Navbar() {
                   </div>
                 </div>
               )}
+            </div>
             </div>
           </div>
         </div>

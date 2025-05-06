@@ -4,9 +4,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
+import { FiBell } from 'react-icons/fi';
 
 export default function Navbar() {
   const [language, setLanguage] = useState('English');
+  const pathname = usePathname();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [username, setUsername] = useState('john_doe');
   const [password, setPassword] = useState('password123');
@@ -14,24 +16,12 @@ export default function Navbar() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [passwordError, setPasswordError] = useState('');
-  const pathname = usePathname();
-
-  const navItems = [
-    { name: 'Home', href: '/manager' },
-    { name: 'Clients', href: '/manager/clients' },
-    { name: 'Loans', href: '/manager/loans' },
-    { name: 'Applications', href: '/manager/applications' },
-    { name: 'Agents', href: '/manager/agents' },
-    { name: 'Collections', href: '/manager/collections' },
-    { name: 'Users', href: '/manager/users' },
-  ];
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
   const handleEdit = () => {
-    // Basic validation for new password and confirm password
     if (newPassword !== confirmPassword) {
       setPasswordError('New Password and Confirm Password do not match.');
     } else {
@@ -42,19 +32,20 @@ export default function Navbar() {
 
   return (
     <div className="w-full bg-gradient-to-r from-gray-50 to-white border-b border-gray-200 shadow-sm">
-    <div className="w-full px-6 py-3">
+       <div className="w-full px-6 py-3">
+    
+
         <div className="flex items-center justify-between">
-          <Link
-            href="/dashboard"
+          <Link 
+            href="/dashboard" 
             className="flex items-center space-x-2 text-xl font-semibold bg-gradient-to-r from-red-600 to-blue-800 bg-clip-text text-transparent hover:from-red-700 hover:to-red-900 transition-all"
           >
             <span>VLSystem</span>
           </Link>
 
           <div className="flex items-center space-x-8">
-            {/* Navigation Links */}
-              {/* language selector */}
-          <label className="flex items-center cursor-pointer">
+            {/* Language Selector */}
+            <label className="flex items-center cursor-pointer">
               <input
                 type="checkbox"
                 className="sr-only"
@@ -68,34 +59,22 @@ export default function Navbar() {
                   }`}
                 ></div>
               </div>
-              <span className=" text-gray-900 ml-3 text-sm font-medium">
+              <span className="text-gray-900 ml-3 text-sm font-medium">
                 {language === "en" ? "English" : "Cebuano"}
               </span>
             </label>
-            <nav>
-              <ul className="flex items-center space-x-6">
-                {navItems.map((item) => {
-                  const isActive = pathname === item.href;
-                  return (
-                    <li key={item.name}>
-                      <Link
-                        href={item.href}
-                        className={`flex items-center space-x-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
-                          isActive
-                            ? 'text-blue-600 bg-blue-50 shadow-sm'
-                            : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                        }`}
-                      >
-                        <span>{item.name}</span>
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            </nav>
 
+            
+            {/* Notification Bell */}
+            <div className="relative cursor-pointer">
+              <FiBell className="text-2xl text-gray-700 hover:text-red-800 transition" />
+              <span className="absolute -top-1 -right-1 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
+                3
+              </span>
+            </div>
+
+            {/* Profile Section */}
             <div className="relative">
-              {/* Profile Image and Dropdown */}
               <div
                 className="w-9 h-9 rounded-full overflow-hidden ring-2 ring-red-900 ring-offset-2 cursor-pointer hover:ring-4 transition-all"
                 onClick={toggleDropdown}
