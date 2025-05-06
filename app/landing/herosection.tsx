@@ -44,7 +44,7 @@ export default function HeroSection({ language }: HeroSectionProps) {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4">
             <Link
-              href="/ApplicationPage"
+              href="/landing/ApplicationPage"
               className="bg-red-600 text-white px-6 py-3 rounded-full font-medium hover:bg-red-700 transition"
             >
               {language === 'en' ? 'Apply Now' : 'Mag-aplay Karon'}
