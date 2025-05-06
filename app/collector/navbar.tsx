@@ -21,6 +21,8 @@ export default function Navbar() {
 
   const navItems = [
     { name: 'Home', href: '/collector'},
+    { name: 'Clients', href: '/collector/clients'},
+    { name: 'Loans', href: '/collector/loans'},
     { name: 'Collection Sheet', href: '/collector/collectionsSheet'},
     { name: 'PayMongo Payments', href: '/collector/paymongoPayments'},
     { name: 'Payments', href: '/collector/payments'},
