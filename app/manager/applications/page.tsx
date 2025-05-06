@@ -199,7 +199,7 @@ export default function ApplicationsPage() {
                     className="hover:bg-gray-50 cursor-pointer"
                   >
                       <td className="px-6 py-4 text-sm text-gray-900">
-                      <Link href={`/applications/${application.id}`}>
+                      <Link href={`/manager/applications/${application.id}`}>
                         {application.id}
                       </Link>
                     </td>

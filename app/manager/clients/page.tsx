@@ -327,7 +327,7 @@ export default function ClientsPage() {
                     onClick={() => setSelectedClient(client.id)}
                   >
                        <td className="px-6 py-4 text-sm text-gray-900">
-                      <Link href={`/clients/${client.id}`}>
+                      <Link href={`/manager/clients/${client.id}`}>
                         {client.id}
                       </Link>
                     </td>

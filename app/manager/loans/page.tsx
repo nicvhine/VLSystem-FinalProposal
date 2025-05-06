@@ -213,7 +213,7 @@ export default function LoansPage() {
                     onClick={() => setSelectedLoan(loan.id)}
                   >
                     <td className="px-6 py-4 text-sm text-gray-900">
-                      <Link href={`/loans/${loan.id}`}>
+                      <Link href={`/manager/loans/${loan.id}`}>
                         {loan.id}
                       </Link>
                     </td>
