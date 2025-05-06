@@ -5,7 +5,7 @@ import Navbar from '../navbar';
 import Link from 'next/link';
 
 export default function CollectionsSheetPage() {
-  const [selectedFilter, setSelectedFilter] = useState('All');
+  const [selectedFilter, setSelectedFilter] = useState('Today');
   const [selectedLoan, setSelectedLoan] = useState(null);
 
   const [isAddPaymentModalOpen, setAddPaymentModalOpen] = useState(false);
@@ -41,7 +41,7 @@ export default function CollectionsSheetPage() {
     {
       id: 'LN001',
       client: 'Juan Dela Cruz',
-      period: 'Mar 2025',
+      period: '2025-05-06',
       endDate: '2025-03-31',
       lastPayment: '2025-03-15',
       pastDue: '2 Days',
@@ -53,7 +53,7 @@ export default function CollectionsSheetPage() {
     {
       id: 'LN001',
       client: 'Juan Dela Cruz',
-      period: 'Mar 2025',
+      period: '2025-04-10',
       endDate: '2025-03-31',
       lastPayment: '2025-03-15',
       pastDue: '2 Days',
@@ -65,7 +65,7 @@ export default function CollectionsSheetPage() {
     {
       id: 'LN001',
       client: 'Juan Dela Cruz',
-      period: 'Mar 2025',
+      period: '2025-04-10',
       endDate: '2025-03-31',
       lastPayment: '2025-03-15',
       pastDue: '2 Days',
@@ -77,7 +77,7 @@ export default function CollectionsSheetPage() {
     {
       id: 'LN001',
       client: 'Juan Dela Cruz',
-      period: 'Mar 2025',
+      period: '2025-04-10',
       endDate: '2025-03-31',
       lastPayment: '2025-03-15',
       pastDue: '2 Days',
@@ -89,7 +89,7 @@ export default function CollectionsSheetPage() {
     {
       id: 'LN001',
       client: 'Juan Dela Cruz',
-      period: 'Mar 2025',
+      period: '2025-04-10',
       endDate: '2025-03-31',
       lastPayment: '2025-03-15',
       pastDue: '2 Days',
@@ -101,7 +101,7 @@ export default function CollectionsSheetPage() {
     {
       id: 'LN001',
       client: 'Juan Dela Cruz',
-      period: 'Mar 2025',
+      period: '2025-05-06',
       endDate: '2025-03-31',
       lastPayment: '2025-03-15',
       pastDue: '2 Days',
@@ -113,7 +113,7 @@ export default function CollectionsSheetPage() {
     {
       id: 'LN001',
       client: 'Juan Dela Cruz',
-      period: 'Mar 2025',
+      period: '2025-05-06',
       endDate: '2025-03-31',
       lastPayment: '2025-03-15',
       pastDue: '2 Days',
@@ -125,7 +125,7 @@ export default function CollectionsSheetPage() {
     {
       id: 'LN001',
       client: 'Juan Dela Cruz',
-      period: 'Mar 2025',
+      period: '2025-05-06',
       endDate: '2025-03-31',
       lastPayment: '2025-03-15',
       pastDue: '2 Days',
@@ -148,11 +148,6 @@ export default function CollectionsSheetPage() {
     },
   ];
 
-  const sortedLoans = loans.filter((loan) => {
-    if (selectedFilter === 'All') return true;
-    if (selectedFilter === 'Past Due' && loan.pastDue !== '0') return true;
-    return false;
-  });
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -164,6 +159,17 @@ export default function CollectionsSheetPage() {
         return 'bg-yellow-500 text-white';
     }
   };
+
+  const today = new Date();
+  const formattedToday = today.toISOString().split('T')[0]; 
+
+  const sortedLoans = loans.filter((loan) => {
+    if (selectedFilter === 'All') return true;
+    if (selectedFilter === 'Past Due' && loan.pastDue !== '0') return true;
+    if (selectedFilter === 'Today' && loan.period === formattedToday) return true;
+    return false;
+  });
+
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -258,28 +264,28 @@ export default function CollectionsSheetPage() {
                   <td className="px-6 py-4 text-sm text-gray-900 font-medium">{formatCurrency(loan.periodAmount)}</td>
                   <td className="px-6 py-4 text-left">
                   <div className="flex space-x-4">
-                  <button
-                    className="px-3 py-1.5 text-sm bg-blue-600 text-white rounded hover:bg-blue-700"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setAddPaymentModalOpen(true);
-                    }}
-                  >
-                    Add Payment
-                  </button>
+                    <button
+                      className="px-3 py-1.5 text-sm bg-blue-600 text-white rounded hover:bg-blue-700"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setAddPaymentModalOpen(true);
+                      }}
+                    >
+                      Add Payment
+                    </button>
 
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setLeaveNoteModalOpen(true);
-                    }}
-                    className="px-3 py-1.5 text-sm bg-blue-600 text-white rounded hover:bg-blue-700"
-                  >
-                    Leave Note
-                  </button>
-                </div>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setLeaveNoteModalOpen(true);
+                      }}
+                      className="px-3 py-1.5 text-sm bg-blue-600 text-white rounded hover:bg-blue-700"
+                    >
+                      Leave Note
+                    </button>
+                  </div>
+                </td>
 
-                  </td>
                 </tr>
               ))}
             </tbody>
