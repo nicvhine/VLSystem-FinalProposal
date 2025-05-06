@@ -1,27 +1,53 @@
+import React from 'react';
+
 const features = [
   {
-    title: 'Quick Processing',
-    description: 'Experience lightning-fast loan approvals and minimal paperwork.',
+    title: {
+      en: 'Quick Processing',
+      ceb: 'Dali nga Pagproseso',
+    },
+    description: {
+      en: 'Experience lightning-fast loan approvals and minimal paperwork.',
+      ceb: 'Masinati ang dali nga pag-apruba sa loan ug gamay ra nga papeles.',
+    },
     icon: '⚡',
   },
   {
-    title: 'Secure Platform',
-    description: 'Your data and transactions are protected with top-grade security.',
+    title: {
+      en: 'Secure Platform',
+      ceb: 'Luwas nga Plataporma',
+    },
+    description: {
+      en: 'Your data and transactions are protected with top-grade security.',
+      ceb: 'Ang imong datos ug transaksyon gipanalipdan sa labing taas nga seguridad.',
+    },
     icon: '🔒',
   },
   {
-    title: '24/7 Support',
-    description: 'We’re here to help anytime you need us.',
+    title: {
+      en: '24/7 Support',
+      ceb: '24/7 nga Suporta',
+    },
+    description: {
+      en: "We're here to help anytime you need us.",
+      ceb: 'Andam kami motabang kanunay kung kinahanglan nimo kami.',
+    },
     icon: '💬',
   },
 ];
 
-export default function FeatureSection() {
+interface FeatureSectionProps {
+  language: 'en' | 'ceb';
+}
+
+export default function FeatureSection({ language }: FeatureSectionProps) {
   return (
     <section className="py-24 bg-gradient-to-br from-white to-gray-100">
       <div className="max-w-6xl mx-auto px-6">
         <h2 className="text-4xl font-bold text-center text-gray-800 mb-16">
-          Why Choose Vistula Lending Corporation?
+          {language === 'en'
+            ? 'Why Choose Vistula Lending Corporation?'
+            : 'Ngano nga Pilion ang Vistula Lending Corporation?'}
         </h2>
 
         <div className="grid md:grid-cols-3 gap-10">
@@ -32,10 +58,10 @@ export default function FeatureSection() {
             >
               <div className="text-5xl mb-4 text-red-600">{feature.icon}</div>
               <h3 className="text-2xl font-semibold text-gray-800 mb-3">
-                {feature.title}
+                {feature.title[language]}
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                {feature.description}
+                {feature.description[language]}
               </p>
             </div>
           ))}

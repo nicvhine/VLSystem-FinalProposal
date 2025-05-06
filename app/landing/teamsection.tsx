@@ -2,6 +2,10 @@
 
 import Image from 'next/image';
 
+interface TeamSectionProps {
+  language: 'en' | 'ceb';
+}
+
 const teamMembers = [
   { name: 'Divina Alburo', role: 'Chief Executive Officer', img: '/idPic.jpg' },
   { name: 'Ronelyn Pelayo', role: 'Loan Manager', img: '/idPic.jpg' },
@@ -21,11 +25,13 @@ const teamMembers = [
   { name: 'Emma Lopez', role: 'Collector', img: '/idPic.jpg' },
 ];
 
-const TeamSection = () => {
+const TeamSection = ({ language }: TeamSectionProps) => {
   return (
     <section className="py-24 bg-gray-50" id="team">
       <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-4xl font-bold text-center mb-16 text-gray-800">Meet Our Team</h2>
+        <h2 className="text-4xl font-bold text-center mb-16 text-gray-800">
+          {language === 'en' ? 'Meet Our Team' : 'Ilaila ang Among Team'}
+        </h2>
         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
           {teamMembers.map((member, index) => (
             <div

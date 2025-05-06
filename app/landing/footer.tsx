@@ -1,6 +1,10 @@
 import Link from 'next/link';
 
-export default function Footer() {
+interface FooterProps {
+  language: 'en' | 'ceb';
+}
+
+export default function Footer({ language }: FooterProps) {
 
   return (
     <footer id="footer" className="bg-black text-white py-12">
@@ -9,21 +13,23 @@ export default function Footer() {
           {/* Company Info */}
           <div>
             <h3 className="text-xl font-bold mb-4">VLSystem</h3>
-            <p className="text-gray-400">Empowering Lives Through Better Lending</p>
+            <p className="text-gray-400">
+              {language === 'en' ? 'Empowering Lives Through Better Lending' : 'Paghatag Kusog sa Kinabuhi Pinaagi sa Mas Maayong Pahulam'}
+            </p>
           </div>
 
           {/* Legal Links */}
           <div>
-            <h4 className="font-semibold mb-4">Legal</h4>
+            <h4 className="font-semibold mb-4">{language === 'en' ? 'Legal' : 'Legal'}</h4>
             <ul className="space-y-2">
-              <li><Link href="/privacy" className="footer-link">Privacy Policy</Link></li>
-              <li><Link href="/terms" className="footer-link">Terms of Service</Link></li>
+              <li><Link href="/privacy" className="footer-link">{language === 'en' ? 'Privacy Policy' : 'Palisiya sa Pagkapribado'}</Link></li>
+              <li><Link href="/terms" className="footer-link">{language === 'en' ? 'Terms of Service' : 'Mga Termino sa Serbisyo'}</Link></li>
             </ul>
           </div>
 
           {/* Contact Info */}
           <div>
-            <h4 className="font-semibold mb-4">Connect</h4>
+            <h4 className="font-semibold mb-4">{language === 'en' ? 'Connect' : 'Kontaka Kami'}</h4>
             <div className="space-y-2">
               <p>📞 +63912023122</p>
               <p>📩 vistulalending@gmail.com</p>

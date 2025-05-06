@@ -1,24 +1,28 @@
 "use client";
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, Dispatch, SetStateAction } from 'react';
 import { usePathname } from 'next/navigation';
 import LoginModal from './loginmodal';
 import TrackModal from './trackmodal';
 
-export default function Navbar() {
-  const [language, setLanguage] = useState('English');
+interface NavbarProps {
+  language: 'en' | 'ceb';
+  setLanguage: Dispatch<SetStateAction<'en' | 'ceb'>>;
+}
+
+export default function Navbar({ language, setLanguage }: NavbarProps) {
   const pathname = usePathname();
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isTrackOpen, setIsTrackOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navItems = [
-    { name: 'Apply', href: '/' },
-    { name: 'Track Application', href: '#', onClick: () => setIsTrackOpen(true) },
+    { name: language === 'en' ? 'Apply' : 'Mag-aplay', href: '/' },
+    { name: language === 'en' ? 'Track Application' : 'Subaya ang Aplikasyon', href: '#', onClick: () => setIsTrackOpen(true) },
     { name: 'Team', href: '#team' },
-    { name: 'About Us', href: "#about" },
-    { name: 'Contact Us', href: '#footer' },
+    { name: language === 'en' ? 'About Us' : 'Mahitungod Kanamo', href: "#about" },
+    { name: language === 'en' ? 'Contact Us' : 'Kontaka Kami', href: '#footer' },
   ];
 
   const isActive = (href: string) => pathname === href || (href === '#' && pathname !== '/');
@@ -40,7 +44,7 @@ export default function Navbar() {
                 type="checkbox"
                 className="sr-only"
                 checked={language === "ceb"}
-                onChange={() => setLanguage(language === "en" ? "ceb" : "en")}
+                onChange={() => setLanguage(language === "ceb" ? "en" : "ceb")}
               />
               <div className="relative w-12 h-6 bg-gray-300 rounded-full transition-all">
                 <div
@@ -87,7 +91,7 @@ export default function Navbar() {
                     onClick={() => setIsLoginOpen(true)}
                     className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition"
                   >
-                    Login
+                    {language === 'en' ? 'Login' : 'Sulod'}
                   </button>
                 </li>
               </ul>

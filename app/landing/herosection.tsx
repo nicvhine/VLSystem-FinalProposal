@@ -7,7 +7,11 @@ import 'swiper/css/navigation';
 import { Navigation, Autoplay } from 'swiper/modules';
 import { useEffect } from 'react';
 
-export default function HeroSection() {
+interface HeroSectionProps {
+  language: 'en' | 'ceb';
+}
+
+export default function HeroSection({ language }: HeroSectionProps) {
   const slides = [
     { img: '/image1.jpg', alt: 'Slide 1' },
     { img: '/image2.jpg', alt: 'Slide 2' },
@@ -23,26 +27,30 @@ export default function HeroSection() {
   return (
     <section className="bg-gradient-to-br from-red-100 via-white to-white py-20">
       <div className="max-w-7xl mx-auto flex flex-col-reverse md:flex-row items-center justify-between gap-12 px-6 md:px-12">
-        
         {/* Text Content */}
         <div className="w-full md:w-1/2 animate-fade-in text-center md:text-left">
-          <p className="text-sm text-gray-500 mb-2">VLSystem by Vistula Lending Corporation</p>
+          <p className="text-sm text-gray-500 mb-2">
+            {language === 'en' ? 'VLSystem by Vistula Lending Corporation' : 'VLSystem sa Vistula Lending Corporation'}
+          </p>
           <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6 leading-tight">
-            Empowering Lives Through Better Lending
+            {language === 'en'
+              ? 'Empowering Lives Through Better Lending'
+              : 'Paghatag Kusog sa Kinabuhi Pinaagi sa Mas Maayong Pahulam'}
           </h1>
           <p className="text-lg text-gray-600 mb-8">
-            Experience seamless lending with our cutting-edge platform — fast, secure, and tailored to your needs.
+            {language === 'en'
+              ? 'Experience seamless lending with our cutting-edge platform — fast, secure, and tailored to your needs.'
+              : 'Masinati ang sayon ug paspas nga pagpahulam gamit ang among modernong plataporma — dali, luwas, ug angay para nimo.'}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4">
-          <Link
-            href="/ApplicationPage"
-            className="bg-red-600 text-white px-6 py-3 rounded-full font-medium hover:bg-red-700 transition"
-          >
-            Apply Now
-          </Link>
+            <Link
+              href="/ApplicationPage"
+              className="bg-red-600 text-white px-6 py-3 rounded-full font-medium hover:bg-red-700 transition"
+            >
+              {language === 'en' ? 'Apply Now' : 'Mag-aplay Karon'}
+            </Link>
+          </div>
         </div>
-        </div>
-
 
         {/* Image Slider */}
         <div className="w-full md:w-1/2 relative">
