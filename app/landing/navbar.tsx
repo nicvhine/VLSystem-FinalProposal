@@ -10,7 +10,8 @@ export default function Navbar() {
   const [language, setLanguage] = useState('English');
   const pathname = usePathname();
   const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const [isTrackOpen, setIsTrackOpen] = useState(false); 
+  const [isTrackOpen, setIsTrackOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navItems = [
     { name: 'Apply', href: '/' },
@@ -20,9 +21,8 @@ export default function Navbar() {
     { name: 'Contact Us', href: '#footer' },
   ];
 
-  const isActive = (href: string) => {
-    return pathname === href || (href === '#' && pathname !== '/');
-  };
+  const isActive = (href: string) => pathname === href || (href === '#' && pathname !== '/');
+
   return (
     <div className="w-full bg-gradient-to-r from-gray-50 to-white border-b border-gray-200 shadow-md sticky top-0 z-20">
       <div className="w-full px-6 py-3">
@@ -34,7 +34,7 @@ export default function Navbar() {
             VLSystem
           </Link>
 
-          <div className="flex flex-wrap items-center gap-6 mt-3 sm:mt-0">
+          <div className="flex items-center gap-6 mt-3 sm:mt-0">
             <label className="flex items-center cursor-pointer">
               <input
                 type="checkbox"
@@ -44,9 +44,7 @@ export default function Navbar() {
               />
               <div className="relative w-12 h-6 bg-gray-300 rounded-full transition-all">
                 <div
-                  className={`absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-all ${
-                    language === "ceb" ? "translate-x-6" : ""
-                  }`}
+                  className={`absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-all ${language === "ceb" ? "translate-x-6" : ""}`}
                 ></div>
               </div>
               <span className="ml-3 text-sm font-medium text-gray-900">
@@ -54,7 +52,16 @@ export default function Navbar() {
               </span>
             </label>
 
-            <nav>
+            <button
+              className="sm:hidden text-gray-600"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
+              </svg>
+            </button>
+
+            <nav className={`sm:flex ${isMenuOpen ? 'block' : 'hidden'} sm:block`}>
               <ul className="flex gap-6 items-center">
                 {navItems.map((item) => {
                   const active = isActive(item.href);
@@ -64,9 +71,9 @@ export default function Navbar() {
                         href={item.href}
                         onClick={item.onClick}
                         className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                          active
-                            ? 'text-blue-600 bg-blue-100 shadow-md'
-                            : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                          item.name === 'Apply'
+                            ? (active ? 'text-gray-600' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100')
+                            : (active ? 'text-blue-600 bg-blue-100 shadow-md' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100')
                         }`}
                       >
                         {item.name}
