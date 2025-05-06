@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import LoginModal from './loginmodal';
-// import TrackModal from '@/components/TrackModal';
+import TrackModal from './trackmodal';
 
 export default function Navbar() {
   const [language, setLanguage] = useState('English');
@@ -14,24 +14,27 @@ export default function Navbar() {
 
   const navItems = [
     { name: 'Apply', href: '/' },
-    { name: 'Track Application', href: '/clients' },
-    { name: 'Team', href: '/loans' },
-    { name: 'About Us', href: '/applications' },
-    { name: 'Contact Us', href: '/agents' },
+    { name: 'Track Application', href: '#', onClick: () => setIsTrackOpen(true) },
+    { name: 'Team', href: '#team' },
+    { name: 'About Us', href: "#about" },
+    { name: 'Contact Us', href: '#footer' },
   ];
 
+  const isActive = (href: string) => {
+    return pathname === href || (href === '#' && pathname !== '/');
+  };
   return (
-    <div className="w-full bg-gradient-to-r from-gray-50 to-white border-b border-gray-200 shadow-sm">
+    <div className="w-full bg-gradient-to-r from-gray-50 to-white border-b border-gray-200 shadow-md sticky top-0 z-20">
       <div className="w-full px-6 py-3">
         <div className="flex flex-wrap items-center justify-between">
           <Link
             href="/dashboard"
-            className="text-xl font-semibold bg-gradient-to-r from-red-600 to-blue-800 bg-clip-text text-transparent hover:from-red-700 hover:to-red-900 transition-all"
+            className="text-2xl font-bold text-transparent bg-gradient-to-r from-red-600 to-blue-800 bg-clip-text hover:from-red-700 hover:to-red-900 transition-all"
           >
             VLSystem
           </Link>
 
-          <div className="flex flex-wrap items-center gap-4 sm:gap-6 lg:gap-8 mt-3 sm:mt-0">
+          <div className="flex flex-wrap items-center gap-6 mt-3 sm:mt-0">
             <label className="flex items-center cursor-pointer">
               <input
                 type="checkbox"
@@ -39,9 +42,9 @@ export default function Navbar() {
                 checked={language === "ceb"}
                 onChange={() => setLanguage(language === "en" ? "ceb" : "en")}
               />
-              <div className="relative w-12 h-6 bg-gray-300 rounded-full transition">
+              <div className="relative w-12 h-6 bg-gray-300 rounded-full transition-all">
                 <div
-                  className={`absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition ${
+                  className={`absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-all ${
                     language === "ceb" ? "translate-x-6" : ""
                   }`}
                 ></div>
@@ -52,17 +55,18 @@ export default function Navbar() {
             </label>
 
             <nav>
-              <ul className="flex flex-wrap items-center gap-4 sm:gap-6 lg:gap-8">
+              <ul className="flex gap-6 items-center">
                 {navItems.map((item) => {
-                  const isActive = pathname === item.href;
+                  const active = isActive(item.href);
                   return (
                     <li key={item.name}>
                       <Link
                         href={item.href}
-                        className={`px-3 py-2 rounded-lg text-sm font-medium transition-all ${
-                          isActive
-                            ? 'text-blue-600 bg-blue-50 shadow-sm'
-                            : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                        onClick={item.onClick}
+                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                          active
+                            ? 'text-blue-600 bg-blue-100 shadow-md'
+                            : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
                         }`}
                       >
                         {item.name}
@@ -74,7 +78,7 @@ export default function Navbar() {
                 <li>
                   <button
                     onClick={() => setIsLoginOpen(true)}
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition"
+                    className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition"
                   >
                     Login
                   </button>
@@ -86,6 +90,7 @@ export default function Navbar() {
       </div>
 
       <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
+      <TrackModal isOpen={isTrackOpen} onClose={() => setIsTrackOpen(false)} />
     </div>
   );
 }

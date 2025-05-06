@@ -10,9 +10,9 @@ import { useEffect } from 'react';
 export default function HeroSection() {
 
   const slides = [
-    { img: '/images/image1.jpg', alt: 'Slide 1' },
-    { img: '/images/image2.jpg', alt: 'Slide 2' },
-    { img: '/images/image3.jpg', alt: 'Slide 3' },
+    { img: '/image1.jpg', alt: 'Slide 1' },
+    { img: '/image2.jpg', alt: 'Slide 2' },
+    { img: '/image3.jpg', alt: 'Slide 3' },
   ];
 
   useEffect(() => {
@@ -22,7 +22,8 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="hero-gradient section-padding">
+    <section className="bg-gradient-to-br from-red-100 via-white to-white section-padding">
+
       <div className="container-custom flex flex-col md:flex-row items-center justify-between gap-8">
         <div className="w-full md:w-1/2 text-left animate-fade-in">
           <p className="mb-1">VLSystem by Vistula Lending Corporation</p>
