@@ -257,9 +257,9 @@ export default function CollectionsSheetPage() {
                   <td className="px-6 py-4 text-sm text-gray-900 font-medium">{formatCurrency(loan.paidAmount)}</td>
                   <td className="px-6 py-4 text-sm text-gray-900 font-medium">{formatCurrency(loan.periodAmount)}</td>
                   <td className="px-6 py-4 text-left">
-                  <div className="flex justify-evenly items-center">
+                  <div className="flex space-x-4">
                   <button
-                    className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                    className="px-3 py-1.5 text-sm bg-blue-600 text-white rounded hover:bg-blue-700"
                     onClick={(e) => {
                       e.stopPropagation();
                       setAddPaymentModalOpen(true);
@@ -273,7 +273,7 @@ export default function CollectionsSheetPage() {
                       e.stopPropagation();
                       setLeaveNoteModalOpen(true);
                     }}
-                    className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                    className="px-3 py-1.5 text-sm bg-blue-600 text-white rounded hover:bg-blue-700"
                   >
                     Leave Note
                   </button>
