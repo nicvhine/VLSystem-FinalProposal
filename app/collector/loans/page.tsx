@@ -3,6 +3,7 @@
 import { useState, Suspense } from 'react';
 import Navbar from '../navbar';
 import { FiSearch, FiChevronDown, FiFilter, FiLoader, FiMoreVertical, FiPlus } from 'react-icons/fi';
+import Link from 'next/link';
 
 interface Loan {
   id: string;
@@ -212,7 +213,11 @@ export default function LoansPage() {
                     }`}
                     onClick={() => setSelectedLoan(loan.id)}
                   >
-                    <td className="px-6 py-4 text-sm text-gray-600 font-medium">{loan.id}</td>
+                    <td className="px-6 py-4 text-sm text-gray-900">
+                      <Link href={`/collector/loans/${loan.id}`}>
+                        {loan.id}
+                      </Link>
+                    </td>
                     <td className="px-6 py-4 text-sm text-gray-900">{loan.name}</td>
                     <td className="px-6 py-4 text-sm text-gray-600">{loan.releaseDate}</td>
                     <td className="px-6 py-4 text-sm text-gray-600">{loan.endDate}</td>
