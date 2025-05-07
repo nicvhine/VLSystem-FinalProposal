@@ -28,8 +28,9 @@ export default function ApplicationPage() {
 
   return (
     <>
+    <div className="min-h-screen bg-gray-50">
       <Navbar />
-      <div className="max-w-4xl mx-auto bg-white p-6 shadow-md  text-black rounded-md mt-20">
+      <div className="max-w-4xl mx-auto bg-white p-6 shadow-md  text-black rounded-md mt-3">
         <div className="text-center">
           <h2 className="text-xl font-bold">Vistula Lending</h2>
           <p className="text-gray-600">Application Form</p>
@@ -180,6 +181,8 @@ export default function ApplicationPage() {
           </div>
         </div>
       )}
+        </div>
     </>
   );
+
 }
