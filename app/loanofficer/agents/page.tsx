@@ -44,25 +44,22 @@ function AddAgentModal({ isOpen, onClose, onAdd }: {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 backdrop-blur-20 flex items-center justify-center z-50">
+    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center px-4">
   <div className="bg-white rounded-lg p-6 w-full max-w-md">
     <div className="flex justify-between items-center mb-4">
-      <h2 className="text-xl font-semibold text-gray-800">Add New Agent</h2>
+      <h2 className="text-xl text-center font-semibold text-gray-800">Add New Agent</h2>
       <button onClick={onClose} className="p-1 hover:bg-gray-100 rounded-full">
         <FiX className="w-5 h-5 text-gray-500" />
       </button>
     </div>
     <form onSubmit={handleSubmit}>
       <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          Name
-        </label>
         <input
           type="text"
           required
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          className="w-full px-3 py-2 border border-gray-300 text-black rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+          className="w-full px-4 py-2 border border-gray-300 rounded-md mb-3 focus:outline-none focus:ring-2 text-black focus:ring-red-500"
           placeholder="Enter agent name"
         />
       </div>
@@ -73,7 +70,7 @@ function AddAgentModal({ isOpen, onClose, onAdd }: {
         <select
           value={formData.status}
           onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-          className="w-full px-3 py-2 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+          className="w-full px-4 py-2 border border-gray-300 rounded-md mb-3 focus:outline-none focus:ring-2 text-black focus:ring-red-500"
         >
           <option value="Active">Active</option>
           <option value="Inactive">Inactive</option>

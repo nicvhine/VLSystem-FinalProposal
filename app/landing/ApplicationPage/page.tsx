@@ -170,7 +170,7 @@ export default function ApplicationPage() {
             <p className="text-center text-gray-700 mb-2">
               Your application has been submitted.
             </p>
-            <p className="text-center font-semibold text-lg">
+            <p className="text-center text-black font-semibold text-lg">
               Here’s your Loan ID:
               <br />
               <span className="text-red-600">{mockLoanId}</span>

@@ -69,22 +69,24 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
           <>
             <h2 className="text-xl font-semibold text-center text-gray-800 mb-2">OTP Verification</h2>
             <p className="text-sm text-gray-600 text-center mb-4">
-              Enter the 6-digit code sent to your registered number.
+              Enter the 6-digit code sent to you.
             </p>
             <form onSubmit={handleOtpSubmit}>
               <input
                 type="text"
                 placeholder="Enter OTP"
-                className="w-full px-4 py-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-red-500"
                 value={otp}
                 onChange={(e) => setOtp(e.target.value)}
               />
+              <div className='flex justify-center '>
               <button
                 type="submit"
-                className="w-full py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+                className="w-30 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition"
               >
                 Verify OTP
               </button>
+              </div>
             </form>
           </>
         ) : (

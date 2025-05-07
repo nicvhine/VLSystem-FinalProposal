@@ -113,7 +113,7 @@ export default function ApplicationDetailsPage({ params }: { params: { id: strin
             >
               Approve
             </button>
-            <button className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+            <button className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-400">
               Deny
             </button>
           </div>
@@ -162,20 +162,17 @@ export default function ApplicationDetailsPage({ params }: { params: { id: strin
 
       {/* Modal for creating borrower account */}
       {showModal && (
-        <div className="fixed inset-0  flex justify-center items-center z-50">
+    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center px-4">
           <div className="bg-white rounded-lg p-6 w-96">
-            <h2 className="text-2xl font-semibold mb-4">Create Borrower Account</h2>
+            <h2 className="text-2xl text-black font-semibold mb-4">Create Borrower Account</h2>
             <form>
               <div className="mb-4">
-                <label htmlFor="username" className="block text-sm font-medium text-gray-700">
-                  Username
-                </label>
                 <input
                   type="text"
                   id="username"
                   value={borrowerUsername}
                   readOnly
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+                  className="text-gray-800 mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
                 />
               </div>
               <div className="mb-4">
@@ -187,7 +184,7 @@ export default function ApplicationDetailsPage({ params }: { params: { id: strin
                   id="contact"
                   value={application.contactNumber}
                   readOnly
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+                  className="text-gray-800 mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
                 />
               </div>
               <div className="mb-4">
@@ -199,7 +196,7 @@ export default function ApplicationDetailsPage({ params }: { params: { id: strin
                   id="contact"
                   value={application.email}
                   readOnly
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+                  className="text-gray-800 mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
                 />
               </div>
               <div className="mb-4">
@@ -211,7 +208,7 @@ export default function ApplicationDetailsPage({ params }: { params: { id: strin
                   id="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+                  className="text-gray-800 mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
                 />
               </div>
               <div className="flex justify-end space-x-2">
@@ -224,7 +221,7 @@ export default function ApplicationDetailsPage({ params }: { params: { id: strin
                 </button>
                 <button
                   type="submit"
-                  className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+                  className="bg-red-500 text-white px-4 py-2 rounded-lg"
                 >
                   Create Account
                 </button>

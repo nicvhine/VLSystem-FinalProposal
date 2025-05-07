@@ -265,7 +265,7 @@ export default function CollectionsSheetPage() {
                   <td className="px-6 py-4 text-left">
                   <div className="flex space-x-4">
                     <button
-                      className="px-3 py-1.5 text-sm bg-blue-600 text-white rounded hover:bg-blue-700"
+                      className="px-3 py-1.5 text-sm bg-black text-white rounded hover:bg-gray-700"
                       onClick={(e) => {
                         e.stopPropagation();
                         setAddPaymentModalOpen(true);
@@ -279,7 +279,7 @@ export default function CollectionsSheetPage() {
                         e.stopPropagation();
                         setLeaveNoteModalOpen(true);
                       }}
-                      className="px-3 py-1.5 text-sm bg-blue-600 text-white rounded hover:bg-blue-700"
+                      className="px-3 py-1.5 text-sm bg-black text-white rounded hover:bg-gray-700"
                     >
                       Leave Note
                     </button>
@@ -321,7 +321,7 @@ export default function CollectionsSheetPage() {
                   <button
                     type="button"
                     onClick={() => setAddPaymentModalOpen(false)}
-                    className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold text-sm w-full hover:bg-blue-700 transition duration-200 ease-in-out"
+                    className="px-6 py-3 bg-red-500 text-white rounded-lg font-semibold text-sm w-full transition duration-200 ease-in-out"
                   >
                     Add Payment
                   </button>
@@ -358,7 +358,7 @@ export default function CollectionsSheetPage() {
           <button
             type="button"
             onClick={() => setLeaveNoteModalOpen(false)}
-            className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold text-sm w-full hover:bg-blue-700 transition duration-200 ease-in-out"
+            className="px-6 py-3 bg-red-600 text-white rounded-lg font-semibold text-sm w-full  transition duration-200 ease-in-out"
           >
             Save Note
           </button>

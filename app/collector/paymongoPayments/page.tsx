@@ -161,7 +161,7 @@ export default function PaymongoPaymentsPage() {
                     {payment.status === 'Pending' && (
                       <button
                         onClick={() => handleConfirmPaymentClick(payment)}
-                        className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 text-sm"
+                        className="bg-black text-white px-3 py-1 rounded hover:bg-gray-700 text-sm"
                       >
                         Confirm Payment
                       </button>
@@ -181,7 +181,7 @@ export default function PaymongoPaymentsPage() {
         </div>
 
         {showReceiptForm && currentPayment && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center">
+    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center px-4">
             <div className="bg-white border p-6 rounded-xl shadow-xl max-w-md w-full">
               <h3 className="text-xl font-semibold mb-4 text-gray-900">Generate Receipt</h3>
               <div className="grid grid-cols-1 gap-3 text-sm text-gray-700">
@@ -231,7 +231,7 @@ export default function PaymongoPaymentsPage() {
                 </button>
                 <button
                   onClick={handleGenerateReceipt}
-                  className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                  className="bg-red-600 text-white px-4 py-2 rounded"
                 >
                   Generate Receipt
                 </button>

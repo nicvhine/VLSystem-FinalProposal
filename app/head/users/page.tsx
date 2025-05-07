@@ -93,26 +93,26 @@ function CreateUserModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50">
+    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center px-4">
       <div className="bg-white p-6 text-black rounded-lg shadow-lg w-96">
         <h2 className="text-xl font-semibold mb-4">Create New User</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4 ">
-            <label className="block text-gray-600">Name</label>
             <input
               type="text"
               name="name"
-              className="w-full p-2 border border-gray-300 rounded-lg"
+              placeholder="Enter Name"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-red-500"
               value={newUser.name}
               onChange={handleChange}
             />
           </div>
-          <div className="mb-4">
-            <label className="block text-gray-600">Email</label>
+          <div>
             <input
               type="email"
               name="email"
-              className="w-full p-2 border border-gray-300 rounded-lg"
+              placeholder="Enter Email"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-red-500"
               value={newUser.email}
               onChange={handleChange}
             />
@@ -153,7 +153,7 @@ function CreateUserModal({
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded-md"
+              className="px-4 py-2 bg-red-600 text-white rounded-md"
             >
               Create User
             </button>
