@@ -1,4 +1,5 @@
-"use client"; 
+"use client";
+
 import { FiTrendingUp, FiUsers, FiDollarSign, FiCheckCircle, FiClock } from 'react-icons/fi';
 import Chart1 from './chart1';
 import Chart2 from './chart2';
@@ -116,44 +117,50 @@ export default function Dashboard() {
           })}
         </div>
 
-        <div className="grid grid-cols-12 gap-6">
-          <div className="col-span-9 grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Chart 1 */}
+          <div className="col-span-1">
             <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
               <div className="text-lg font-semibold mb-4 text-gray-800">Loan Statistics</div>
               <Chart1 />
             </div>
+          </div>
+
+          {/* Chart 2 */}
+          <div className="col-span-1">
             <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
               <div className="text-lg font-semibold mb-4 text-gray-800">Collection Rate</div>
               <Chart2 />
             </div>
           </div>
+        </div>
 
-          <div className="col-span-3">
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-              <h2 className="text-lg font-semibold mb-4 text-gray-800 flex items-center gap-2">
-                <FiClock className="w-5 h-5 text-blue-500" />
-                Recent Activity
-              </h2>
-              <div className="space-y-4">
-                {recentActivity.map((activity, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 rounded-lg bg-gray-50 border border-gray-100">
-                    <div>
-                      <div className="text-sm font-medium text-gray-900">
-                        {activity.type}
-                      </div>
-                      <div className="text-xs text-gray-500">
-                        ID: {activity.id}
-                      </div>
-                      <div className="text-xs text-gray-500">
-                        {activity.date} • {activity.time}
-                      </div>
+        {/* Recent Activity Log */}
+        <div className="mt-6">
+          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+            <h2 className="text-lg font-semibold mb-4 text-gray-800 flex items-center gap-2">
+              <FiClock className="w-5 h-5 text-blue-500" />
+              Recent Activity
+            </h2>
+            <div className="space-y-4">
+              {recentActivity.map((activity, index) => (
+                <div key={index} className="flex items-center justify-between p-3 rounded-lg bg-gray-50 border border-gray-100">
+                  <div>
+                    <div className="text-sm font-medium text-gray-900">
+                      {activity.type}
                     </div>
-                    <span className={`px-2.5 py-1 rounded-full text-xs font-medium border ${getStatusColor(activity.status)}`}>
-                      {activity.status}
-                    </span>
+                    <div className="text-xs text-gray-500">
+                      ID: {activity.id}
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      {activity.date} • {activity.time}
+                    </div>
                   </div>
-                ))}
-              </div>
+                  <span className={`px-2.5 py-1 rounded-full text-xs font-medium border ${getStatusColor(activity.status)}`}>
+                    {activity.status}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
         </div>

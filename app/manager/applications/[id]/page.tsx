@@ -29,7 +29,6 @@ function LoadingSpinner() {
   );
 }
 
-// Function to generate username
 const generateUsername = (firstName: string, lastName: string): string => {
   const username = firstName.slice(0, 3).toLowerCase() + lastName.charAt(0).toUpperCase() + lastName.slice(1).toLowerCase();
   return username;
@@ -78,7 +77,6 @@ export default function ApplicationDetailsPage({ params }: { params: { id: strin
   };
 
   const handleApprove = () => {
-    // Generate username based on the first three letters of the first name and last name
     const [firstName, lastName] = application.name.split(' ');
     const username = generateUsername(firstName, lastName);
     setBorrowerUsername(username);
@@ -104,7 +102,7 @@ export default function ApplicationDetailsPage({ params }: { params: { id: strin
    
     <div className="min-h-screen bg-gray-50">
        <Navbar />
-       <div className="max-w-[1600px] mx-auto px-6 py-8">
+       <div className="max-w-[1600px] text-black mx-auto px-6 py-8">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold">Application ID: {id}</h1>
 

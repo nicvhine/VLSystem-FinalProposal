@@ -8,6 +8,7 @@ export default function ApplicationPage() {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [mockLoanId] = useState("VL-" + Math.floor(100000 + Math.random() * 900000));
+  const [language, setLanguage] = useState<'en' | 'ceb'>('en');
 
   const router = useRouter(); 
 
@@ -28,8 +29,8 @@ export default function ApplicationPage() {
 
   return (
     <>
-      <Navbar />
-      <div className="max-w-4xl mx-auto bg-white p-6 shadow-md rounded-md mt-20">
+       <Navbar language={language} setLanguage={setLanguage} />
+      <div className="max-w-4xl mx-auto bg-white text-black p-6 shadow-md rounded-md mt-20">
         <div className="text-center">
           <h2 className="text-xl font-bold">Vistula Lending</h2>
           <p className="text-gray-600">Application Form</p>

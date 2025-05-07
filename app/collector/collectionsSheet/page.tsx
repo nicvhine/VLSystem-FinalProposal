@@ -41,7 +41,7 @@ export default function CollectionsSheetPage() {
     {
       id: 'LN001',
       client: 'Juan Dela Cruz',
-      period: '2025-05-06',
+      period: '2025-05-07',
       endDate: '2025-03-31',
       lastPayment: '2025-03-15',
       pastDue: '2 Days',
@@ -296,7 +296,7 @@ export default function CollectionsSheetPage() {
     
         {/* Add Payment Modal */}
         {isAddPaymentModalOpen && (
-          <div className="fixed inset-0 z-20 flex items-center justify-center bg-black/40 backdrop-blur-sm transition-all duration-300 ease-in-out">
+          <div className="fixed inset-0 z-20 text-black flex items-center justify-center bg-black/40 backdrop-blur-sm transition-all duration-300 ease-in-out">
             <div className="bg-gradient-to-br from-blue-100 to-white p-8 rounded-2xl shadow-lg w-96">
               <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Add Payment</h2>
               <form>
@@ -334,7 +334,7 @@ export default function CollectionsSheetPage() {
 
       {/* Leave Note Modal */}
 {isLeaveNoteModalOpen && (
-  <div className="fixed inset-0 z-20 flex items-center justify-center bg-black/40 backdrop-blur-sm transition-all duration-300 ease-in-out">
+  <div className="fixed inset-0 z-20 flex items-center text-black justify-center bg-black/40 backdrop-blur-sm transition-all duration-300 ease-in-out">
     <div className="bg-gradient-to-br from-blue-100 to-white p-8 rounded-2xl shadow-lg w-96">
       <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Leave a Note</h2>
       <form>

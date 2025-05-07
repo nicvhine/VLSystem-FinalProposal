@@ -94,10 +94,10 @@ function CreateUserModal({
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+      <div className="bg-white p-6 text-black rounded-lg shadow-lg w-96">
         <h2 className="text-xl font-semibold mb-4">Create New User</h2>
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
+          <div className="mb-4 ">
             <label className="block text-gray-600">Name</label>
             <input
               type="text"
@@ -171,7 +171,7 @@ export default function UsersPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
 
-  const users: User[] = [
+  const [users, setUsers] = useState<User[]>([
     {
       id: "USR001",
       name: "John Doe",
@@ -204,7 +204,8 @@ export default function UsersPage() {
       status: "Active",
       lastActive: "2024-03-24T11:15:00",
     },
-  ];
+  ]);
+  
 
   const filteredUsers = users.filter((user) => {
     const matchesSearch = Object.values(user).some((value) =>
@@ -251,15 +252,22 @@ export default function UsersPage() {
  
   };
 
+
   const handleDeleteUser = (userId: string) => {
     setShowActions(null);
   
   };
 
   const handleCreateUser = (newUser: User) => {
- 
-    console.log("New user created:", newUser);
+    const generatedId = `USR${(users.length + 1).toString().padStart(3, '0')}`;
+    const userWithIdAndDate = {
+      ...newUser,
+      id: generatedId,
+      lastActive: new Date().toISOString(),
+    };
+    setUsers([...users, userWithIdAndDate]);
   };
+  
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -369,11 +377,11 @@ export default function UsersPage() {
         </div>
 
         <Suspense fallback={<LoadingSpinner />}>
-          <CreateUserModal
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-            onCreate={handleCreateUser}
-          />
+        <CreateUserModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onCreate={handleCreateUser}
+        />
         </Suspense>
       </div>
     </div>

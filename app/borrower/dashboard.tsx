@@ -115,29 +115,33 @@ export default function HomePage() {
           </div>
 
           {/* Loan Details */}
-          <div className="bg-white shadow-md rounded-2xl p-6 text-gray-800 hover:shadow-lg transition">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold">Current Loan</h2>
-              <span className="text-sm">Loan ID: <span className="text-red-500">{loanInfo.loanId}</span></span>
-            </div>
-            <div className="grid grid-cols-2 gap-4 text-sm">
-              <div className="space-y-1">
-                <p><strong>Interest Type:</strong> <span className="text-red-500">{loanInfo.interestType}</span></p>
-                <p><strong>Interest Rate:</strong> {loanInfo.interestRate}</p>
-                <p><strong>Release Date:</strong> {loanInfo.releaseDate}</p>
-                <p><strong>Start Date:</strong> {loanInfo.startDate}</p>
-                <p><strong>End Date:</strong> {loanInfo.endDate}</p>
-                <p><strong>Period:</strong> {loanInfo.period}</p>
-                <p><strong>No. of Periods:</strong> {loanInfo.numberOfPeriods}</p>
-              </div>
-              <div className="space-y-1">
-                <p><strong>Status:</strong> <span className="text-green-600">{loanInfo.status}</span></p>
-                <p><strong>Due Date:</strong> {loanInfo.dueDate}</p>
-                <p><strong>Remaining Balance:</strong> {loanInfo.remainingBalance}</p>
-                <p><strong>Total Payments:</strong> {loanInfo.totalPayments}</p>
-              </div>
-            </div>
-          </div>
+<div className="bg-white shadow-lg rounded-2xl p-6 text-gray-800 hover:shadow-xl transition-all duration-300">
+  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
+    <h2 className="text-2xl font-semibold text-gray-800">Current Loan Details</h2>
+    <span className="text-sm mt-2 sm:mt-0 text-gray-600">
+      Loan ID: <span className="font-medium text-red-500">{loanInfo.loanId}</span>
+    </span>
+  </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+        <div className="space-y-2">
+          <p><span className="font-medium">Interest Type:</span> <span className="text-red-500">{loanInfo.interestType}</span></p>
+          <p><span className="font-medium">Interest Rate:</span> {loanInfo.interestRate}</p>
+          <p><span className="font-medium">Release Date:</span> {loanInfo.releaseDate}</p>
+          <p><span className="font-medium">Start Date:</span> {loanInfo.startDate}</p>
+          <p><span className="font-medium">End Date:</span> {loanInfo.endDate}</p>
+          <p><span className="font-medium">Loan Period:</span> {loanInfo.period}</p>
+          <p><span className="font-medium">Number of Periods:</span> {loanInfo.numberOfPeriods}</p>
+        </div>
+
+        <div className="space-y-2">
+          <p><span className="font-medium">Status:</span> <span className="text-green-600 font-semibold">{loanInfo.status}</span></p>
+          <p><span className="font-medium">Due Date:</span> {loanInfo.dueDate}</p>
+          <p><span className="font-medium">Remaining Balance:</span> {loanInfo.remainingBalance}</p>
+          <p><span className="font-medium">Total Payments:</span> {loanInfo.totalPayments}</p>
+        </div>
+      </div>
+    </div>
 
           {/* Payment Progress */}
           <div className="bg-white shadow-md rounded-2xl p-6 flex flex-col items-center justify-between text-gray-800 hover:shadow-lg transition">
@@ -168,7 +172,7 @@ export default function HomePage() {
             <button
             className="bg-green-600 text-white p-4 rounded-lg shadow-md hover:bg-white-600 transition"
           >
-            <Link href="/upcoming-bills">Pay Now</Link>
+            <Link href="/borrower/upcoming-bills">Pay Now</Link>
           </button>
 
           </div>

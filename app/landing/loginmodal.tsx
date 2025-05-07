@@ -57,7 +57,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center px-4">
-      <div className="bg-white rounded-xl shadow-2xl w-full max-w-sm p-6 relative animate-fade-in">
+      <div className="bg-white rounded-xl shadow-2xl w-full max-w-sm p-6 relative animate-fade-in text-black">
         <button
           onClick={onClose}
           className="absolute top-3 right-3 text-gray-400 hover:text-gray-700 transition"
@@ -97,14 +97,14 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
               <input
                 type="text"
                 placeholder="Username"
-                className="w-full px-4 py-2 border border-gray-300 rounded-md mb-3 focus:outline-none focus:ring-2 focus:ring-red-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md mb-3 focus:outline-none focus:ring-2 text-black focus:ring-red-500"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
               <input
                 type="password"
                 placeholder="Password"
-                className="w-full px-4 py-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-red-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md mb-4 focus:outline-none text-black focus:ring-2 focus:ring-red-500"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />

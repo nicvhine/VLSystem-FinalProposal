@@ -23,6 +23,7 @@ ChartJS.register(
 
 const options = {
   responsive: true,
+  maintainAspectRatio: false, 
   plugins: {
     legend: {
       position: 'top' as const,
@@ -64,8 +65,8 @@ export default function Chart1() {
   }
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-72"> {/* Adjusted height for responsiveness */}
       <Bar options={options} data={data} />
     </div>
   );
-} 
+}

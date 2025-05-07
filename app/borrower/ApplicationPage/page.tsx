@@ -23,13 +23,13 @@ export default function ApplicationPage() {
 
   const closeModal = () => {
     setShowSuccessModal(false);
-    router.push("/"); 
+    router.push("/borrower"); 
   };
 
   return (
     <>
       <Navbar />
-      <div className="max-w-4xl mx-auto bg-white p-6 shadow-md rounded-md mt-20">
+      <div className="max-w-4xl mx-auto bg-white p-6 shadow-md  text-black rounded-md mt-20">
         <div className="text-center">
           <h2 className="text-xl font-bold">Vistula Lending</h2>
           <p className="text-gray-600">Application Form</p>
@@ -169,7 +169,7 @@ export default function ApplicationPage() {
             <p className="text-center text-gray-700 mb-2">
               Your application has been submitted.
             </p>
-            <p className="text-center font-semibold text-lg">
+            <p className="text-center font-semibold text-black text-lg">
               Here’s your Loan ID:
               <br />
               <span className="text-red-600">{mockLoanId}</span>

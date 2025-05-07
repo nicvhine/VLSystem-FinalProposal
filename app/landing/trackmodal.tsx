@@ -24,8 +24,7 @@ export default function TrackModal({ isOpen, onClose }: TrackModalProps) {
   if (!isOpen) return null;
 
   const handleTrack = () => {
-    // Simulate getting a status (no DB needed)
-    setStatus("in-review"); // Could also randomly pick or cycle through statuses
+    setStatus("in-review");
   };
 
   const getProgress = () => {
@@ -45,7 +44,7 @@ export default function TrackModal({ isOpen, onClose }: TrackModalProps) {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-[40rem] relative">
+      <div className="bg-white p-6 rounded-lg shadow-lg w-[40rem] relative text-black ">
         <button
           onClick={onClose}
           className="absolute top-3 right-3 text-gray-600 hover:text-black"
