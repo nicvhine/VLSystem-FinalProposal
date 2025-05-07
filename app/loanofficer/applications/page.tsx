@@ -27,7 +27,7 @@ function LoadingSpinner() {
 export default function ApplicationsPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('');
-  const [activeFilter, setActiveFilter] = useState('All');
+  const [activeFilter, setActiveFilter] = useState('Pending');
 
   const applications: Application[] = [
    
@@ -54,10 +54,17 @@ export default function ApplicationsPage() {
       principalAmount: 25000,
       interestRate: 2.0,
       status: "Denied"
+    },
+    {
+      id: "APP005",
+      name: "Nichole Garcia",
+      applicationDate: "2024-03-21",
+      principalAmount: 25000,
+      interestRate: 2.0,
+      status: "Pending"
     }
   ];
 
-  // Filter applications based on status and search query
   const filteredApplications = applications.filter(application => {
     const matchesSearch = Object.values(application).some(value => 
       value?.toString().toLowerCase().includes(searchQuery.toLowerCase())
@@ -106,20 +113,11 @@ export default function ApplicationsPage() {
             >
               All
             </button>
-            {/* <button
-              onClick={() => setActiveFilter('Evaluating')}
-              className={`px-4 py-1.5 rounded-md text-sm ${
-                activeFilter === 'Evaluating'
-                  ? 'bg-red-200 text-red-600'
-                  : 'text-gray-600 hover:bg-gray-100'
-              }`}
-            >
-              Evaluating
-            </button> */}
+            
             <button
               onClick={() => setActiveFilter('Pending')}
               className={`px-4 py-1.5 rounded-md text-sm ${
-                activeFilter === 'Under Approval'
+                activeFilter === 'Pending'
                   ? 'bg-red-200 text-red-600'
                   : 'text-gray-600 hover:bg-gray-100'
               }`}

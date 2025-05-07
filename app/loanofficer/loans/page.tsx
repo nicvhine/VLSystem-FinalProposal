@@ -65,14 +65,12 @@ export default function LoansPage() {
 
   const filterTabs = [
     { id: 'all', label: 'All' },
-    { id: 'year', label: 'Year', hasDropdown: true },
-    { id: 'collector', label: 'Collector', hasDropdown: true },
-    { id: 'agent', label: 'Agent', hasDropdown: true },
-    { id: 'overdue', label: 'Overdue' },
-    { id: 'closed', label: 'Closed', hasDropdown: true }
+    { id: 'active', label: 'Active'},
+    { id: 'overdue', label: 'Overdue'},
+    { id: 'closed', label: 'Closed',},
+  
   ];
 
-  // Filter loans based on search query and active filters
   const filteredLoans = loans.filter(loan => {
     const matchesSearch = Object.values(loan).some(value => 
       value?.toString().toLowerCase().includes(searchQuery.toLowerCase())
