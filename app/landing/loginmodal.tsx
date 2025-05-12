@@ -12,6 +12,8 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showOtpModal, setShowOtpModal] = useState(false);
+  const [showForgotModal, setShowForgotModal] = useState(false);
+  const [forgotRole, setForgotRole] = useState<'borrower' | 'staff' | null>(null);  
   const [otp, setOtp] = useState('');
   const router = useRouter();
 
@@ -65,6 +67,59 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
           ✖
         </button>
 
+        {showForgotModal && forgotRole === null && (
+  <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center px-4">
+    <div className="bg-white rounded-xl shadow-2xl w-full max-w-sm p-6 relative animate-fade-in text-black">
+      <button
+        onClick={() => setShowForgotModal(false)}
+        className="absolute top-3 right-3 text-gray-400 hover:text-gray-700 transition"
+      >
+        ✖
+      </button>
+      <h2 className="text-xl font-semibold text-center text-gray-800 mb-4">Forgot Password</h2>
+      <p className="text-sm text-gray-600 text-center mb-6">Select your role to proceed:</p>
+      <div className="flex justify-around">
+        <button
+          onClick={() => {
+            setShowForgotModal(false);
+            setShowOtpModal(true);
+          }}
+          className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition"
+        >
+          Borrower
+        </button>
+        <button
+          onClick={() => setForgotRole('staff')}
+          className="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 transition"
+        >
+          Staff
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+{showForgotModal && forgotRole === 'staff' && (
+  <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center px-4">
+    <div className="bg-white rounded-xl shadow-2xl w-full max-w-sm p-6 relative animate-fade-in text-black">
+      <button
+        onClick={() => {
+          setShowForgotModal(false);
+          setForgotRole(null);
+        }}
+        className="absolute top-3 right-3 text-gray-400 hover:text-gray-700 transition"
+      >
+        ✖
+      </button>
+      <h2 className="text-xl font-semibold text-center text-gray-800 mb-2">Staff Assistance</h2>
+      <p className="text-sm text-gray-600 text-center">
+        Please contact your system administrator to retrieve your username or reset your password.
+      </p>
+    </div>
+  </div>
+)}
+
+
+
         {showOtpModal ? (
           <>
             <h2 className="text-xl font-semibold text-center text-gray-800 mb-2">OTP Verification</h2>
@@ -110,6 +165,16 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
+             <p
+              className="text-sm text-blue-600 hover:underline cursor-pointer text-center mb-4"
+                onClick={() => {
+                  setShowForgotModal(true);
+                  setForgotRole(null);
+                }}
+              >
+                Forgot Password or Username?
+              </p>
+
               <div className="flex justify-center">
                 <button
                   type="submit"

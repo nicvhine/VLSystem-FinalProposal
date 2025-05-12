@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Navbar from '../navbar';
 
 export default function PaymongoPaymentsPage() {
-  const [selectedFilter, setSelectedFilter] = useState('All');
+  const [selectedFilter, setSelectedFilter] = useState('Pending');
   const [showReceiptForm, setShowReceiptForm] = useState(false);
   const [currentPayment, setCurrentPayment] = useState(null);
   const [receiptNo, setReceiptNo] = useState('');

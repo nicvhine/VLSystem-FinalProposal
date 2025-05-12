@@ -1,191 +1,304 @@
-"use client";
+'use client';
 
 import { useState } from "react";
-import { useRouter } from "next/navigation"; 
+import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
+import L from "leaflet";
+import axios from "axios";
 import Navbar from "../navbar";
 
+function MapComponent({ setAddress }: { setAddress: (address: string) => void }) {
+  const [marker, setMarker] = useState<L.Marker | null>(null);
+
+  useMapEvents({
+    click(e) {
+      const { lat, lng } = e.latlng;
+      if (marker) marker.remove();
+
+      const newMarker = L.marker([lat, lng]).addTo(e.target);
+      setMarker(newMarker);
+
+      axios.get("https://nominatim.openstreetmap.org/reverse", {
+        params: {
+          lat,
+          lon: lng,
+          format: "json",
+        },
+      })
+      .then((response) => {
+        const address = response.data.display_name;
+        setAddress(address);
+        newMarker.bindPopup(address).openPopup();
+      })
+      .catch((error) => {
+        console.error("Error fetching address:", error);
+      });
+    },
+  });
+
+  return null;
+}
+
 export default function ApplicationPage() {
+  const [address, setAddress] = useState('');
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [mockLoanId] = useState("VL-" + Math.floor(100000 + Math.random() * 900000));
   const [language, setLanguage] = useState<'en' | 'ceb'>('en');
+  const [maritalStatus, setMaritalStatus] = useState('');
+  const [spouseName, setSpouseName] = useState('');
+  const [spouseOccupation, setSpouseOccupation] = useState('');
+  const [houseStatus, setHouseStatus] = useState('');
+  const [employmentType, setEmploymentType] = useState<'business' | 'employed' | ''>('');
+  const [occupation, setOccupation] = useState('');
+  const [employmentStatus, setEmploymentStatus] = useState('');
+  const [companyName, setCompanyName] = useState('');
+  const [companyAddress, setCompanyAddress] = useState('');
+  const [monthlyIncome, setMonthlyIncome] = useState('');
+  const [lengthOfService, setLengthOfService] = useState('');
 
-  const router = useRouter(); 
-
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files) {
-      setUploadedFile(event.target.files[0]);
-    }
-  };
-
-  const handleSubmit = () => {
-    setShowSuccessModal(true);
-  };
-
-  const closeModal = () => {
-    setShowSuccessModal(false);
-    router.push("/"); 
-  };
+  const handleSubmit = () => setShowSuccessModal(true);
+  const closeModal = () => setShowSuccessModal(false);
 
   return (
-    <>
     <div className="min-h-screen bg-gray-50">
-       <Navbar language={language} setLanguage={setLanguage} />
-      <div className="max-w-4xl mx-auto bg-white text-black p-6 shadow-md rounded-md mt-3">
-        <div className="text-center">
-          <h2 className="text-xl font-bold">Vistula Lending</h2>
+      <Navbar language={language} setLanguage={setLanguage} />
+      <div className="max-w-4xl mx-auto bg-white text-black p-6 shadow-md rounded-md mt-6">
+        <div className="text-center mb-8">
+          <h2 className="text-2xl font-bold">Vistula Lending Corporation</h2>
           <p className="text-gray-600">Application Form</p>
         </div>
-        <div className="border p-2 rounded cursor-pointer my-4">
-          <label className="cursor-pointer">
-            📤 Upload Image
-            <input type="file" className="hidden" onChange={handleFileUpload} />
-          </label>
+
+         <div className="mb-6">
+          <label className="block mb-1 font-medium">Amount Applied:</label>
+          <input type="number" className="w-full border p-2 rounded" />
         </div>
 
-        {/* Personal Info */}
-        <div className="grid grid-cols-2 gap-4">
+        <h3 className="text-lg font-bold mb-2">Basic Details</h3>
+        <hr className="border-b border-gray-500 mb-6" />
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label>Amount Applied:</label>
-            <input type="text" className="w-full border p-2 rounded" />
+            <label className="block mb-1 font-medium">Name of Borrower:</label>
+            <input type="text" placeholder="Enter Name" className="w-full border p-2 rounded" />
           </div>
+
           <div>
-            <label>Date of Birth:</label>
+            <label className="block mb-1 font-medium">Date of Birth:</label>
             <input type="date" className="w-full border p-2 rounded" />
           </div>
+
           <div>
-            <label>Name of Borrower:</label>
-            <input type="text" className="w-full border p-2 rounded" />
+            <label className="block mb-1 font-medium">Contact Number:</label>
+            <input type="text" placeholder="Enter contact number" className="w-full border p-2 rounded" />
           </div>
+
           <div>
-            <label>Contact Number:</label>
-            <input type="text" className="w-full border p-2 rounded" />
+            <label className="block mb-1 font-medium">Marital Status:</label>
+            <select
+              value={maritalStatus}
+              onChange={(e) => setMaritalStatus(e.target.value)}
+              className="w-full border p-2 rounded"
+            >
+              <option value="">Select status</option>
+              <option value="single">Single</option>
+              <option value="married">Married</option>
+              <option value="widowed">Widowed</option>
+            </select>
           </div>
+
+          {maritalStatus === 'married' && (
+            <>
+              <div>
+                <label className="block mb-1 font-medium">Spouse Name:</label>
+                <input
+                  type="text"
+                  className="w-full border p-2 rounded"
+                  value={spouseName}
+                  onChange={(e) => setSpouseName(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="block mb-1 font-medium">Spouse's Occupation:</label>
+                <input
+                  type="text"
+                  className="w-full border p-2 rounded"
+                  value={spouseOccupation}
+                  onChange={(e) => setSpouseOccupation(e.target.value)}
+                />
+              </div>
+            </>
+          )}
         </div>
 
-        {/* Home Information */}
-        <div className="mt-4">
-          <label>Home Address:</label>
-          <input type="text" className="w-full border p-2 rounded" />
-          <div className="flex items-center gap-4 mt-2">
-            <span>House:</span>
-            <label className="flex items-center">
-              <input type="checkbox" className="mr-1" /> Rented
-            </label>
-            <label className="flex items-center">
-              <input type="checkbox" className="mr-1" /> Owned
-            </label>
-          </div>
-        </div>
-
-        {/* Employment Details */}
-        <div className="mt-4">
-          <h3 className="font-semibold">Employment Details</h3>
-          <div className="grid grid-cols-2 gap-4">
-            <input type="text" placeholder="Occupation/Position" className="border p-2 rounded" />
-            <input type="text" placeholder="Company Name" className="border p-2 rounded" />
-            <input type="text" placeholder="Monthly Income" className="border p-2 rounded" />
-            <input type="text" placeholder="Length of Service" className="border p-2 rounded" />
-          </div>
-        </div>
-
-        {/* Loan Details */}
-        <div className="mt-4">
-          <h3 className="font-semibold">Loan Details</h3>
-          <div className="grid grid-cols-2 gap-4">
-            <input type="text" placeholder="Loan Purpose" className="border p-2 rounded" />
-            <input type="text" placeholder="Proposed Collaterals" className="border p-2 rounded" />
-          </div>
-
-          <div className="mt-2">
-            <label>Loan Terms:</label>
-            <div className="flex gap-2 flex-wrap">
-              {[5, 6, 8, 10, 12, 18, 24].map((term) => (
-                <label key={term} className="flex items-center">
-                  <input type="checkbox" className="mr-1" /> {term}
-                </label>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-2">
-            <label>Payment Schedule:</label>
-            <div className="flex gap-2">
-              <label className="flex items-center">
-                <input type="checkbox" className="mr-1" /> Weekly
-              </label>
-              <label className="flex items-center">
-                <input type="checkbox" className="mr-1" /> Fifteenth
-              </label>
-              <label className="flex items-center">
-                <input type="checkbox" className="mr-1" /> Monthly
-              </label>
-            </div>
-          </div>
-        </div>
-
-        {/* Signature */}
-        <div className="mt-6 flex justify-between">
-          <button className="border p-2 rounded bg-gray-200">
-            Insert Image
-          </button>
-          <div>
-            <label>Application Date:</label>
-            <input type="date" className="border p-2 rounded ml-2" />
-          </div>
-          <div className="border p-2 rounded">
-            Signature/Thumbprint
-          </div>
-        </div>
-
-        {/* Sketch Area */}
+        {/* House Status */}
         <div className="mt-6">
-          <h3 className="font-semibold">Kindly indicate below the sketch and landmarks of your residence address.</h3>
-          <div className="border p-10 mt-2"></div>
+          <label className="block mb-2 font-medium">House Status:</label>
+          <div className="flex gap-6">
+            {['owned', 'rented'].map((status) => (
+              <label key={status} className="flex items-center">
+                <input
+                  type="radio"
+                  name="houseStatus"
+                  value={status}
+                  checked={houseStatus === status}
+                  onChange={() => setHouseStatus(status)}
+                  className="mr-2"
+                />
+                {status.charAt(0).toUpperCase() + status.slice(1)}
+              </label>
+            ))}
+          </div>
         </div>
 
+        {/* Address Input */}
+        <div className="mt-6">
+          <label className="block mb-2 font-medium">Address:</label>
+          <input
+            type="text"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            className="w-full border p-2 rounded"
+            placeholder="Click on the map or type here"
+          />
+        </div>
+
+        {/* Map */}
+        <div className="mt-6 border rounded-lg overflow-hidden shadow-md">
+          <MapContainer center={[12.8797, 121.774]} zoom={6} style={{ height: "400px", width: "100%" }}>
+            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+            <MapComponent setAddress={setAddress} />
+          </MapContainer>
+        </div>
+
+        {/* Employment Type */}
+        <div className="mt-6">
+          <label className="block font-medium mb-2">Source of Income:</label>
+          <div className="flex gap-6">
+            {['business', 'employed'].map((type) => (
+              <label key={type} className="flex items-center">
+                <input
+                  type="radio"
+                  name="employmentType"
+                  value={type}
+                  checked={employmentType === type}
+                  onChange={() => setEmploymentType(type as 'business' | 'employed')}
+                  className="mr-2"
+                />
+                {type === 'business' ? 'Business Owner' : 'Employed'}
+              </label>
+            ))}
+          </div>
+
+          {/* Conditional Fields */}
+          {employmentType === 'business' && (
+            <div className="mt-4">
+              <label className="block font-medium mb-1">Type of Business:</label>
+              <select className="w-full border p-2 rounded">
+                <option value="">Select business type</option>
+                <option value="retail">Retail</option>
+                <option value="food">Food & Beverage</option>
+                <option value="services">Services</option>
+                <option value="others">Others</option>
+              </select>
+            </div>
+          )}
+
+          {employmentType === 'employed' && (
+            <>
+              <div className="mt-4">
+                <label className="block font-medium mb-1">Occupation/Position:</label>
+                <input
+                  type="text"
+                  value={occupation}
+                  onChange={(e) => setOccupation(e.target.value)}
+                  className="w-full border p-2 rounded"
+                />
+              </div>
+
+              <div className="mt-4">
+                <label className="block font-medium mb-1">Employment Status:</label>
+                <select
+                  value={employmentStatus}
+                  onChange={(e) => setEmploymentStatus(e.target.value)}
+                  className="w-full border p-2 rounded"
+                >
+                  <option value="">Select employment status</option>
+                  <option value="regular">Regular</option>
+                  <option value="irregular">Irregular</option>
+                </select>
+              </div>
+
+              <div className="mt-4">
+                <label className="block font-medium mb-1">Company Name:</label>
+                <input
+                  type="text"
+                  value={companyName}
+                  onChange={(e) => setCompanyName(e.target.value)}
+                  className="w-full border p-2 rounded"
+                />
+              </div>
+
+              <div className="mt-4">
+                <label className="block font-medium mb-1">Company Address:</label>
+                <input
+                  type="text"
+                  value={companyAddress}
+                  onChange={(e) => setCompanyAddress(e.target.value)}
+                  className="w-full border p-2 rounded"
+                />
+              </div>
+
+              <div className="mt-4">
+                <label className="block font-medium mb-1">Monthly Income:</label>
+                <input
+                  type="text"
+                  value={monthlyIncome}
+                  onChange={(e) => setMonthlyIncome(e.target.value)}
+                  className="w-full border p-2 rounded"
+                />
+              </div>
+
+              <div className="mt-4">
+                <label className="block font-medium mb-1">Length of Service:</label>
+                <input
+                  type="text"
+                  value={lengthOfService}
+                  onChange={(e) => setLengthOfService(e.target.value)}
+                  className="w-full border p-2 rounded"
+                />
+              </div>
+            </>
+          )}
+        </div>
+
+        <h3 className="text-lg font-bold mt-5 mb-2">Loan Details</h3>
+        <hr className="border-b border-gray-500 mb-6" />
         {/* Submit Button */}
-        <div className="mt-6 text-center">
+        <div className="mt-8 text-center">
           <button
             onClick={handleSubmit}
-            className="bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700"
+            className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
           >
             Submit Application
           </button>
         </div>
-      </div>
 
-      {/* Success Modal */}
-      {showSuccessModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg relative">
-            <button
-              onClick={closeModal}
-              className="absolute top-3 right-3 text-gray-600 hover:text-black"
-            >
-              ✖
-            </button>
-            <h2 className="text-xl font-bold text-center text-green-600 mb-4">
-              🎉 Congratulations!
-            </h2>
-            <p className="text-center text-gray-700 mb-2">
-              Your application has been submitted.
-            </p>
-            <p className="text-center text-black font-semibold text-lg">
-              Here’s your Loan ID:
-              <br />
-              <span className="text-red-600">{mockLoanId}</span>
-            </p>
-            <p className="text-center text-sm text-gray-500 mt-2">
-              Please take note of it for tracking purposes.
-            </p>
+        {/* Success Modal */}
+        {showSuccessModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div className="bg-white p-6 rounded-md shadow-md max-w-sm text-center">
+              <h2 className="text-lg font-bold mb-4">Application Submitted!</h2>
+              <p>Your Loan ID: <strong>{mockLoanId}</strong></p>
+              <button
+                onClick={closeModal}
+                className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+              >
+                Close
+              </button>
+            </div>
           </div>
-        </div>
-      )}
-        </div>
-
-    </>
-      
+        )}
+      </div>
+    </div>
   );
-  
 }

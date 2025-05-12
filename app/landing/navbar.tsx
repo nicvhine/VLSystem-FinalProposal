@@ -5,6 +5,7 @@ import { useState, Dispatch, SetStateAction } from 'react';
 import { usePathname } from 'next/navigation';
 import LoginModal from './loginmodal';
 import TrackModal from './trackmodal';
+import CalculationModal from './calculation';
 
 interface NavbarProps {
   language: 'en' | 'ceb';
@@ -16,10 +17,11 @@ export default function Navbar({ language, setLanguage }: NavbarProps) {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isTrackOpen, setIsTrackOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const [isCalculationOpen, setIsCalculationOpen] = useState(false);
+  
   const navItems = [
-    { name: language === 'en' ? 'Apply' : 'Mag-aplay', href: '/' },
-    { name: language === 'en' ? 'Track Application' : 'Subaya ang Aplikasyon', href: '#', onClick: () => setIsTrackOpen(true) },
+  
+    { name: language === 'en' ? 'Loan Simulator' : 'Simulasyon sa Utang', href: '#', onClick: () => setIsCalculationOpen(true),},
     { name: 'Team', href: '#team' },
     { name: language === 'en' ? 'About Us' : 'Mahitungod Kanamo', href: "#about" },
     { name: language === 'en' ? 'Contact Us' : 'Kontaka Kami', href: '#footer' },
@@ -32,7 +34,7 @@ export default function Navbar({ language, setLanguage }: NavbarProps) {
       <div className="w-full px-6 py-3">
         <div className="flex flex-wrap items-center justify-between">
           <Link
-            href="/dashboard"
+            href="/"
             className="text-2xl font-bold text-transparent bg-gradient-to-r from-red-600 to-blue-800 bg-clip-text hover:from-red-700 hover:to-red-900 transition-all"
           >
             VLSystem
@@ -72,8 +74,13 @@ export default function Navbar({ language, setLanguage }: NavbarProps) {
                   return (
                     <li key={item.name}>
                       <Link
-                        href={item.href}
-                        onClick={item.onClick}
+                        href={item.href || '#'}
+                        onClick={(e) => {
+                          if (item.onClick) {
+                            e.preventDefault(); 
+                            item.onClick();
+                          }
+                        }}
                         className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                           item.name === 'Apply'
                             ? (active ? 'text-gray-600' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100')
@@ -82,6 +89,7 @@ export default function Navbar({ language, setLanguage }: NavbarProps) {
                       >
                         {item.name}
                       </Link>
+
                     </li>
                   );
                 })}
@@ -102,6 +110,7 @@ export default function Navbar({ language, setLanguage }: NavbarProps) {
 
       <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
       <TrackModal isOpen={isTrackOpen} onClose={() => setIsTrackOpen(false)} />
+      <CalculationModal isOpen={isCalculationOpen} onClose={() => setIsCalculationOpen(false)} />
     </div>
   );
 }

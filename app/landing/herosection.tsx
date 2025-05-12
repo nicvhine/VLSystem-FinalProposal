@@ -1,17 +1,20 @@
 "use client";
 
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation, Autoplay } from 'swiper/modules';
-import { useEffect } from 'react';
+import TrackModal from './trackmodal';
 
 interface HeroSectionProps {
   language: 'en' | 'ceb';
 }
 
 export default function HeroSection({ language }: HeroSectionProps) {
+  const [isTrackOpen, setIsTrackOpen] = useState(false);
+
   const slides = [
     { img: '/image1.jpg', alt: 'Slide 1' },
     { img: '/image2.jpg', alt: 'Slide 2' },
@@ -30,7 +33,9 @@ export default function HeroSection({ language }: HeroSectionProps) {
         {/* Text Content */}
         <div className="w-full md:w-1/2 animate-fade-in text-center md:text-left">
           <p className="text-sm text-gray-500 mb-2">
-            {language === 'en' ? 'VLSystem by Vistula Lending Corporation' : 'VLSystem sa Vistula Lending Corporation'}
+            {language === 'en'
+              ? 'VLSystem by Vistula Lending Corporation'
+              : 'VLSystem sa Vistula Lending Corporation'}
           </p>
           <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6 leading-tight">
             {language === 'en'
@@ -49,6 +54,13 @@ export default function HeroSection({ language }: HeroSectionProps) {
             >
               {language === 'en' ? 'Apply Now' : 'Mag-aplay Karon'}
             </Link>
+
+            <button
+              onClick={() => setIsTrackOpen(true)}
+              className="bg-red-600 text-white px-6 py-3 rounded-full font-medium hover:bg-red-700 transition"
+            >
+              Track Application
+            </button>
           </div>
         </div>
 
@@ -93,6 +105,11 @@ export default function HeroSection({ language }: HeroSectionProps) {
           font-size: 2.5rem !important;
         }
       `}</style>
+
+        {isTrackOpen && (
+          <TrackModal isOpen={isTrackOpen} onClose={() => setIsTrackOpen(false)} />
+        )}
+
     </section>
   );
 }
