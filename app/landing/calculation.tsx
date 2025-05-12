@@ -176,7 +176,7 @@ export default function CalculationModal({ isOpen, onClose }: CalculationModalPr
 
           <button
             type="submit"
-            className="bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
+            className="bg-red-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
           >
             Calculate
           </button>
