@@ -163,7 +163,7 @@ export default function CalculationModal({ isOpen, onClose }: CalculationModalPr
 
   return (
     <div className="fixed inset-0 text-black z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center px-4">
-      <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-lg relative">
+      <div className="bg-white rounded-xl shadow-lg  w-full max-w-lg max-h-[80vh] overflow-y-auto relative p-6">
         <button
           onClick={onClose}
           className="absolute top-2 right-4 text-gray-600 text-xl hover:text-red-600"

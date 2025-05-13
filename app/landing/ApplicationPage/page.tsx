@@ -76,8 +76,8 @@ export default function ApplicationPage() {
     <div className="min-h-screen bg-gray-50">
       <Navbar language={language} setLanguage={setLanguage} />
 
-     {loanType && (
-  <div className="fixed top-38 left-6 w-[400px] bg-white border border-gray-200 rounded-2xl shadow-xl p-6 animate-fade-in">
+  {loanType && (
+    <div className="fixed top-38 left-4 w-xs bg-white border border-gray-200 rounded-2xl shadow-xl p-6 z-50 animate-fade-in">
     <h1 className="text-2xl font-bold text-gray-800 mb-4">Requirements</h1>
 
     {loanType === 'Regular Loan w/o Collateral' && (
@@ -132,7 +132,7 @@ export default function ApplicationPage() {
         
 
         {loanType && (
-          <div className="w-full max-w-4xl mt-6 p-6 bg-white text-black rounded-lg shadow-md space-y-6">
+          <div className="w-full max-w-4xl ml-40 mt-6 p-6 bg-white text-black rounded-lg shadow-md space-y-6">
             <h3 className="text-xl text-red-600 font-bold">{loanType}</h3>
 
             {/* Without Collateral */}

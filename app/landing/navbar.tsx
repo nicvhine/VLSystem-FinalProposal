@@ -69,30 +69,30 @@ export default function Navbar({ language, setLanguage }: NavbarProps) {
 
             <nav className={`sm:flex ${isMenuOpen ? 'block' : 'hidden'} sm:block`}>
               <ul className="flex gap-6 items-center">
-                {navItems.map((item) => {
-                  const active = isActive(item.href);
-                  return (
-                    <li key={item.name}>
-                      <Link
-                        href={item.href || '#'}
-                        onClick={(e) => {
-                          if (item.onClick) {
-                            e.preventDefault(); 
-                            item.onClick();
-                          }
-                        }}
-                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                          item.name === 'Apply'
-                            ? (active ? 'text-gray-600' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100')
-                            : (active ? 'text-blue-600 bg-blue-100 shadow-md' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100')
-                        }`}
-                      >
-                        {item.name}
-                      </Link>
+              {navItems.map((item) => {
+            const active = isActive(item.href);
+            return (
+              <li key={item.name}>
+                <Link
+                  href={item.href || '#'}
+                  onClick={(e) => {
+                    if (item.onClick) {
+                      e.preventDefault();
+                      item.onClick();
+                    }
+                  }}
+                  className={`px-4 py-2 text-sm font-medium transition-all ${
+                    active
+                      ? 'text-gray-600 '
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              </li>
+            );
+          })}
 
-                    </li>
-                  );
-                })}
 
                 <li>
                   <button
