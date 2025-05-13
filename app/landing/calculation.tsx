@@ -1,5 +1,3 @@
-'use client';
-
 import React, { useState } from 'react';
 
 interface CalculationModalProps {
@@ -11,29 +9,31 @@ export default function CalculationModal({ isOpen, onClose }: CalculationModalPr
   const [loanType, setLoanType] = useState('');
   const [amount, setAmount] = useState<number | ''>('');
   const [result, setResult] = useState<string>('');
+  const [paymentPeriod, setPaymentPeriod] = useState('');
+  const [paymentPerPeriod, setPaymentPerPeriod] = useState<number>(0); // Change to a number
 
   if (!isOpen) return null;
 
   const withCollateralTable = [
-    { amount: 20000, interest: 7, months: 8 },
-    { amount: 50000, interest: 5, months: 10 },
-    { amount: 100000, interest: 4, months: 18 },
-    { amount: 200000, interest: 3, months: 24 },
-    { amount: 300000, interest: 2, months: 36 },
+    { amountRange: { min: 20000, max: 49999 }, interest: 7, months: 8 },
+    { amountRange: { min: 50000, max: 99999 }, interest: 5, months: 10 },
+    { amountRange: { min: 100000, max: 199999 }, interest: 4, months: 18 },
+    { amountRange: { min: 200000, max: 299999 }, interest: 3, months: 24 },
+    { amountRange: { min: 300000, max: 499999 }, interest: 2, months: 36 },
     { amount: 500000, interest: 1.5, months: 60 },
   ];
 
   const withoutCollateralTable = [
-    { amount: 10000, interest: 10, months: 5 },
-    { amount: 15000, interest: 10, months: 6 },
-    { amount: 20000, interest: 10, months: 8 },
-    { amount: 30000, interest: 10, months: 10 },
+    { amountRange: { min: 10000, max: 14999 }, interest: 10, months: 5 },
+    { amountRange: { min: 15000, max: 15000 }, interest: 10, months: 6 },
+    { amountRange: { min: 20000, max: 20000 }, interest: 10, months: 8 },
+    { amountRange: { min: 30000, max: 30000 }, interest: 10, months: 10 },
   ];
 
   const openTermTable = [
-    { amount: 50000, interest: 6 },
-    { amount: 100000, interest: 5 },
-    { amount: 200000, interest: 4 },
+    { amountRange: { min: 50000, max: 99999 }, interest: 6 },
+    { amountRange: { min: 100000, max: 199999 }, interest: 5 },
+    { amountRange: { min: 200000, max: 499999 }, interest: 4 },
     { amount: 500000, interest: 3 },
   ];
 
@@ -51,41 +51,65 @@ export default function CalculationModal({ isOpen, onClose }: CalculationModalPr
   };
 
   const calculateLoan = (e: React.FormEvent) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (!loanType || !amount) {
-      setResult('Please complete the form.');
-      return;
-    }
+  if (!loanType || !amount) {
+    setResult('Please complete the form.');
+    return;
+  }
 
-    const amt = Number(amount);
+  const amt = Number(amount);
 
-    // Add 2% service charge to the amount
-    const serviceCharge = amt * 0.02;
-    const amountWithServiceCharge = amt + serviceCharge;
+  const selectedTable = getTableByStatus(loanType);
+  let loanOption;
 
-    const selectedTable = getTableByStatus(loanType);
-    const loanOption = selectedTable.find((opt) => opt.amount === amt);
-
-    if (!loanOption) {
-      setResult('Invalid amount for selected employment status.');
-      return;
-    }
-
-    const rate = loanOption.interest;
-    const months = loanOption.months || 0;
-
-    const totalInterest = amountWithServiceCharge * (rate / 100);
-    const totalRepayment = amountWithServiceCharge + totalInterest;
-    const monthlyPayment = months > 0 ? totalRepayment / months : totalRepayment;
-
-    setResult(
-      `Monthly Payment: ₱${monthlyPayment.toFixed(2)}\nTerm: ${months > 0 ? `${months} months` : 'N/A'}\nTotal Payment: ₱${totalRepayment.toFixed(2)}\nService Charge: ₱${serviceCharge.toFixed(2)}`
+  if (loanType === 'regularWithout') {
+    loanOption = selectedTable.find(
+      (opt) =>
+        amt >= opt.amountRange.min && amt <= opt.amountRange.max
     );
-  };
+  } else if (loanType === 'openTerm') {
+    loanOption = selectedTable.find(
+      (opt) =>
+        (amt >= opt.amountRange?.min && amt <= opt.amountRange?.max) || amt === opt.amount
+    );
+  } else {
+    loanOption = selectedTable.find(
+      (opt) =>
+        amt >= opt.amountRange?.min && amt <= opt.amountRange?.max || amt === opt.amount
+    );
+  }
+
+  if (!loanOption) {
+    setResult('Invalid amount for selected loan type.');
+    return;
+  }
+
+  const rate = loanOption.interest;
+  const months = loanOption.months || 0;
+
+  const totalInterest = (amt * rate) / 100;
+  const totalRepayment = amt + totalInterest;
+
+  if (paymentPeriod === 'monthly' && months > 0) {
+    setPaymentPerPeriod(totalRepayment / months);
+  } else if (paymentPeriod === 'fifteenth') {
+    setPaymentPerPeriod(totalRepayment / 15);
+  }
+
+  setResult(`
+    Payment Period: ${paymentPeriod === 'monthly' ? 'Monthly' : 'Fifteenth'}
+    Principal Amount: ₱${amt.toFixed(2)}
+    Interest: ₱${totalInterest.toFixed(2)}
+    Total Payment: ₱${totalRepayment.toFixed(2)}
+    Loan Term: ${months} month${months > 1 ? 's' : ''}
+    Payment per ${paymentPeriod === 'monthly' ? 'Month' : 'Fifteenth'}: ₱${paymentPerPeriod.toFixed(2)}
+  `);
+};
+
 
   const renderTable = () => {
-    let tableData: { amount: number; interest: number; months?: number }[] = []
+    let tableData: { amount: number; interest: number; months?: number; amountRange?: { min: number, max: number } }[] = [];
 
     if (loanType === 'regularWith') {
       tableData = withCollateralTable;
@@ -120,7 +144,11 @@ export default function CalculationModal({ isOpen, onClose }: CalculationModalPr
           <tbody>
             {tableData.map((item, index) => (
               <tr key={index} className="bg-white hover:bg-gray-50">
-                <td className="border px-4 py-2">{item.amount.toLocaleString()}</td>
+                <td className="border px-4 py-2">
+                  {item.amountRange
+                    ? `${item.amountRange.min} - ${item.amountRange.max}`
+                    : item.amount.toLocaleString()}
+                </td>
                 <td className="border px-4 py-2">{item.interest}%</td>
                 {loanType !== 'openTerm' && (
                   <td className="border px-4 py-2">{item.months}</td>
@@ -174,17 +202,31 @@ export default function CalculationModal({ isOpen, onClose }: CalculationModalPr
             />
           </div>
 
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Payment Period</label>
+            <select
+              value={paymentPeriod}
+              onChange={(e) => setPaymentPeriod(e.target.value)}
+              className="w-full border p-2 rounded"
+            >
+              <option value="">Select payment period</option>
+              <option value="monthly">Monthly</option>
+              <option value="fifteenth">15th of the Month</option>
+            </select>
+          </div>
+
           <button
             type="submit"
-            className="bg-red-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
+            className="mt-4 bg-red-500 text-white p-2 rounded-md hover:bg-red-600"
           >
             Calculate
           </button>
         </form>
 
         {result && (
-          <div className="mt-4 p-4 bg-gray-100 rounded text-gray-800 whitespace-pre-line">
-            {result}
+          <div className="mt-6 p-4 bg-gray-100 rounded-md border">
+            <h3 className="font-semibold">Loan Details</h3>
+            <pre>{result}</pre>
           </div>
         )}
       </div>
