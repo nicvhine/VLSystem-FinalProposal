@@ -59,8 +59,8 @@ export default function ApplicationsPage() {
       id: "APP005",
       name: "Nichole Garcia",
       applicationDate: "2024-03-21",
-      principalAmount: 25000,
-      interestRate: 2.0,
+      principalAmount: 30000,
+      interestRate: 10.0,
       status: "Pending"
     }
   ];

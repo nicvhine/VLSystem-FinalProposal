@@ -80,7 +80,7 @@ export default function ApplicationPage() {
     <div className="fixed top-38 left-4 w-xs bg-white border border-gray-200 rounded-2xl shadow-xl p-6 z-50 animate-fade-in">
     <h1 className="text-2xl font-bold text-gray-800 mb-4">Requirements</h1>
 
-    {loanType === 'Regular Loan w/o Collateral' && (
+    {loanType === 'Regular Loan Without Collateral' && (
       <>
         <h2 className="text-lg font-semibold text-gray-700 mb-3">Regular Loan (No Collateral)</h2>
         <ul className="space-y-2 text-sm text-gray-600">
@@ -92,7 +92,7 @@ export default function ApplicationPage() {
       </>
     )}
 
-    {loanType === 'Regular Loan w/ Collateral' && (
+    {loanType === 'Regular Loan With Collateral' && (
       <>
         <h2 className="text-lg font-semibold text-gray-700 mb-3">Regular Loan (With Collateral)</h2>
         <ul className="space-y-2 text-sm text-gray-600">
@@ -154,7 +154,7 @@ export default function ApplicationPage() {
             </div>
 
             {/* With Collateral Form */}
-            {loanType === 'Regular Loan w/ Collateral' && (
+            {loanType === 'Regular Loan With Collateral' && (
               <>
                 {/* Marital Info */}
                 <div>
@@ -363,7 +363,7 @@ export default function ApplicationPage() {
             )}
 
             {/* Without Collateral Form */}
-            {loanType === 'Regular Loan w/o Collateral' && (
+            {loanType === 'Regular Loan Without Collateral' && (
               <>
                 {/* Marital Info */}
                 <div>
@@ -870,7 +870,7 @@ export default function ApplicationPage() {
             onClick={(e) => e.stopPropagation()}
           >
             <h2 className="text-lg text-black font-bold mb-4">Select Loan Type</h2>
-            {["Regular Loan w/o Collateral", "Regular Loan w/ Collateral", "Open-Term Loan"].map((type) => (
+            {["Regular Loan Without Collateral", "Regular Loan With Collateral", "Open-Term Loan"].map((type) => (
               <button
                 key={type}
                 onClick={() => handleLoanTypeSelection(type)}

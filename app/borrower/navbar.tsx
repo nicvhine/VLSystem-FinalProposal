@@ -23,7 +23,6 @@ export default function Navbar() {
 
   const navItems = [
     { name: 'Home', href: '/borrower' },
-    { name: 'Apply Loan', href: '/borrower/ApplicationPage' },
   ];
 
   const handleEdit = () => {
