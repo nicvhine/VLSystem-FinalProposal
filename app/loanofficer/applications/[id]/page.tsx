@@ -248,17 +248,16 @@ export default function ApplicationDetailsPage({ params }: { params: { id: strin
 
       <p className="font-semibold underline mb-3">WITNESSETH:</p>
       <ol className="list-decimal list-inside space-y-2 mb-6">
-        <li>The LENDER agrees to lend and the BORROWER agrees to borrow the sum of <strong>{formatCurrency(application.principalAmount)}</strong>.</li>
-        <li>The loan shall accrue interest at a rate of <strong>{application.interestRate}%</strong> calculated based on the principal amount.</li>
+        <li><strong>Loan Amount.</strong>The LENDER agrees to lend and the BORROWER agrees to borrow the sum of <strong>{formatCurrency(application.loanAmount)}</strong>.</li>
+        <li><strong>Interest Rate.</strong>The loan shall accrue interest at a rate of <strong>{application.interestRate}</strong> calculated based on the principal amount.</li>
         <li>
-          The BORROWER shall repay the loan according to the following terms:
+          <strong>Repayment Terms.</strong>The BORROWER shall repay the loan according to the following terms:
           <ul className="list-disc list-inside ml-4 mt-1">
             <li>
-              Repayment Schedule: Loan shall be paid in <strong>{application.repaymentTerm}</strong> installment(s) in the uniform amount of
-              <strong> {formatCurrency(application.monthlyInstallment)}</strong>.
-            </li>
-            <li>
-              First payment of interest and principal shall be on <strong>{formatDate(application.firstPaymentDate)}</strong>.
+              Repayment Schedule: Loan shall be paid in <strong>{application.loanTerms}</strong> installment(s) in the uniform amount of
+              <strong> ₱ 3,300.00</strong>.
+
+              The first payment of interest and principal shall be on <strong>May 13, 2025</strong>.
             </li>
             <li>
               Remaining amount shall be due every <strong>{application.paymentFrequency}</strong> for the succeeding months.
@@ -268,7 +267,7 @@ export default function ApplicationDetailsPage({ params }: { params: { id: strin
         <li>
           The BORROWER fails to pay the loan in default if any of the following occurs:
           <ul className="list-disc list-inside ml-4 mt-1">
-            <li>Failure to make any payment under this agreement within 5 days after its due date.</li>
+            <li>Failure to make any payment under this agreement within 3 days after its due date.</li>
             <li>Any material term of the agreement is violated.</li>
           </ul>
         </li>
