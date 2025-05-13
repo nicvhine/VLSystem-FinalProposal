@@ -43,8 +43,21 @@ function LoadingSpinner() {
   );
 }
 
+const generateUsername = (firstName: string, lastName: string): string => {
+  const username = firstName.slice(0, 3).toLowerCase() + lastName.charAt(0).toUpperCase() + lastName.slice(1).toLowerCase();
+  return username;
+};
+
+
 export default function ApplicationDetailsPage({ params }: { params: { id: string } }) {
   const { id } = params;
+
+  const handleApprove = () => {
+    const [firstName, lastName] = application.name.split(' ');
+    const username = generateUsername(firstName, lastName);
+    setBorrowerUsername(username);
+    setShowModal(true);
+  };
 
   const application: Application = {
     id,
@@ -129,11 +142,11 @@ export default function ApplicationDetailsPage({ params }: { params: { id: strin
           Export to PDF
         </button> 
         <button
-          onClick={handleExportPDF}
-          className="bg-green-600 ml-5 hover:bg-green-700 text-white px-4 py-2 rounded-md shadow"
-        >
-          Approve
-        </button>
+              onClick={handleApprove}
+              className="bg-green-500 ml-5 text-white px-4 py-2 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
+            >
+              Approve
+            </button>
         <button
           onClick={handleExportPDF}
           className="bg-red-600 ml-5 hover:bg-red-700 text-white px-4 py-2 rounded-md shadow"
@@ -230,7 +243,78 @@ export default function ApplicationDetailsPage({ params }: { params: { id: strin
         </p>
       </div>
 
-      
+      {showModal && (
+        <div className="fixed inset-0 text-black z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center px-4">
+          <div className="bg-white rounded-lg p-6 w-96">
+            <h2 className="text-2xl font-semibold mb-4">Create Borrower Account</h2>
+            <form>
+              <div className="mb-4">
+                <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+                  Username
+                </label>
+                <input
+                  type="text"
+                  id="username"
+                  value={borrowerUsername}
+                  readOnly
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+                />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="contact" className="block text-sm font-medium text-gray-700">
+                  Contact Number
+                </label>
+                <input
+                  type="text"
+                  id="contact"
+                  value={application.contactNumber}
+                  readOnly
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+                />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="contact" className="block text-sm font-medium text-gray-700">
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  id="contact"
+                  value={application.emailAddress}
+                  readOnly
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+                />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                  Password
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+                />
+              </div>
+              <div className="flex justify-end space-x-2">
+                <button
+                  type="button"
+                  onClick={() => setShowModal(false)}
+                  className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600"
+                >
+                  Close
+                </button>
+                <button
+                  type="submit"
+                  className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+                >
+                  Create Account
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

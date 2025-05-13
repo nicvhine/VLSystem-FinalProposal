@@ -174,6 +174,7 @@ export default function HomePage() {
           >
             <Link href="/borrower/upcoming-bills">Pay Now</Link>
           </button>
+          <p className='mt-5'>You are not yet eligible for Reloan.</p>
 
           </div>
         </div>

@@ -67,7 +67,7 @@ export default function Navbar() {
               </span>
             </label>
 
-            {/* Nav Links */}
+            {/* Nav Links
             <nav>
               <ul className="flex items-center space-x-6">
                 {navItems.map((item) => {
@@ -88,7 +88,7 @@ export default function Navbar() {
                   );
                 })}
               </ul>
-            </nav>
+            </nav> */}
 
             {/* Notification Bell */}
             <div className="relative">
