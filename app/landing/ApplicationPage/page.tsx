@@ -439,22 +439,28 @@ export default function ApplicationPage() {
 
       {/* Success Modal */}
       {showSuccessModal && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
-          onClick={closeModal}
-        >
-          <div
-            className="bg-white p-6 rounded-md shadow-md max-w-sm text-center"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h2 className="text-lg font-bold mb-4">Application Submitted!</h2>
-            <p>Your Loan ID: <strong>{mockLoanId}</strong></p>
+        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg relative">
             <button
               onClick={closeModal}
-              className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+              className="absolute top-3 right-3 text-gray-600 hover:text-black"
             >
-              Close
+              ✖
             </button>
+            <h2 className="text-xl font-bold text-center text-green-600 mb-4">
+              🎉 Congratulations!
+            </h2>
+            <p className="text-center text-gray-700 mb-2">
+              Your application has been submitted.
+            </p>
+            <p className="text-center text-black font-semibold text-lg">
+              Here’s your Loan ID:
+              <br />
+              <span className="text-red-600">{mockLoanId}</span>
+            </p>
+            <p className="text-center text-sm text-gray-500 mt-2">
+              Please take note of it for tracking purposes.
+            </p>
           </div>
         </div>
       )}
