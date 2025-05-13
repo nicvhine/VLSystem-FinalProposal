@@ -19,8 +19,6 @@ export default function Navbar() {
   const router = useRouter();
   
   const navItems = [
-    { name: 'Home', href: '/loanofficer'},
-    { name: 'Clients', href: '/loanofficer/clients'},
     { name: 'Loans', href: '/loanofficer/loans'},
     { name: 'Applications', href: '/loanofficer/applications'},
     { name: 'Agents', href: '/loanofficer/agents'},

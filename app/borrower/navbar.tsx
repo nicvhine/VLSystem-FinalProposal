@@ -21,9 +21,6 @@ export default function Navbar() {
   const [isEditing, setIsEditing] = useState(false);
   const [passwordError, setPasswordError] = useState('');
 
-  const navItems = [
-    { name: 'Home', href: '/borrower' },
-  ];
 
   const handleEdit = () => {
     if (newPassword !== confirmPassword) {

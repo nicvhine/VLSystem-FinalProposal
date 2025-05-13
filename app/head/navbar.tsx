@@ -20,8 +20,6 @@ export default function Navbar() {
   const router = useRouter();
 
   const navItems = [
-    { name: 'Home', href: '/head' },
-    { name: 'Clients', href: '/head/clients' },
     { name: 'Loans', href: '/head/loans' },
     { name: 'Applications', href: '/head/applications' },
     { name: 'Agents', href: '/head/agents' },
