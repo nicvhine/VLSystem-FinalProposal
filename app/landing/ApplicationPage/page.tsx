@@ -135,6 +135,30 @@ export default function ApplicationPage() {
           <div className="w-full max-w-4xl ml-40 mt-6 p-6 bg-white text-black rounded-lg shadow-md space-y-6">
             <h3 className="text-xl text-red-600 font-bold">{loanType}</h3>
 
+              {/* With Collateral */}
+              {loanType === 'Regular Loan w/ Collateral' && (
+                <>
+                  {/* Basic Info */}
+                  <div>
+                    <h4 className="text-lg font-semibold mb-2">Basic Information</h4>
+                    <div className="space-y-4">
+                      <label className="block font-medium mb-1">Name:</label>
+                      <input className="w-full border p-2 rounded" placeholder="Enter name" />
+
+                      <label className="block font-medium mb-1">Date of Birth:</label>
+                      <input className="w-full border p-2 rounded" placeholder="Enter date of birth" />
+
+                      <label className="block font-medium mb-1">Contact Number:</label>
+                      <input className="w-full border p-2 rounded" placeholder="Enter contact number" />
+
+                      <label className="block font-medium mb-1">Email Address:</label>
+                      <input className="w-full border p-2 rounded" placeholder="Enter email address" />
+                    </div>
+                  </div>
+                </>
+              )}
+
+
             {/* Without Collateral */}
             {loanType === 'Regular Loan w/o Collateral' && (
               <>
@@ -395,12 +419,10 @@ export default function ApplicationPage() {
                   )}
 
                 </div>
-
-          
                 </div>
                 </div>
 
-
+              
                 <button
                   onClick={handleSubmit}
                   className="mt-6 bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700"
@@ -436,7 +458,7 @@ export default function ApplicationPage() {
           </div>
         </div>
       )}
-
+      
       {/* Success Modal */}
       {showSuccessModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
